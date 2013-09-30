@@ -10,3 +10,5 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+
+Route::get('/', array('as' => 'home', 'uses' => 'HomeController@getIndex'));
