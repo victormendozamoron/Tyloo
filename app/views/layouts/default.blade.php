@@ -45,6 +45,10 @@
     </div>
 
     <div class="container">
+      <!-- Notifications -->
+      @include('partials.notifications')
+
+      <!-- Content -->
       @yield('content')
     </div>
 
