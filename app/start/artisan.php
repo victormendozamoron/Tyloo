@@ -11,3 +11,6 @@
 |
 */
 
+Artisan::add(new TylooAppSetup());
+Artisan::add(new TylooUserAdd());
+Artisan::add(new TylooAdminAdd());

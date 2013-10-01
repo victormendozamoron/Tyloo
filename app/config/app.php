@@ -65,7 +65,7 @@ return array(
 	|
 	*/
 
-	'key' => 'g0J8SvH80s2Ccy4JkDn4XtdP4jF2gDh4',
+	'key' => 'e17noJsM28S1Oq34RpeDtNHLVsm6v9Mc',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -116,6 +116,7 @@ return array(
 
 		// Additional Plugins
 		'Cartalyst\Sentry\SentryServiceProvider', // Sentry
+		'Way\Generators\GeneratorsServiceProvider', // Generator
 
 	),
 

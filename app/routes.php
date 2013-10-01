@@ -2,6 +2,24 @@
 
 /*
 |--------------------------------------------------------------------------
+| Authentication and Authorization Routes
+|--------------------------------------------------------------------------
+|
+|
+|
+*/
+
+Route::group(array('prefix' => 'auth'), function()
+{
+
+	# Login
+	Route::get('login', array('as' => 'login', 'uses' => 'AuthController@getLogin'));
+	Route::post('login', 'AuthController@postLogin');
+
+});
+
+/*
+|--------------------------------------------------------------------------
 | Application Routes
 |--------------------------------------------------------------------------
 |
