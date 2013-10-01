@@ -32,13 +32,39 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
+          <a class="navbar-brand" href="{{ (Request::is('/') ? '#' : URL::route('home')) }}">Tyloo.fr</a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li {{ (Request::is('/') ? 'class="active"' : '') }}><a href="{{ (Request::is('/') ? '#' : URL::route('home')) }}">Home</a></li>
+            <li {{ (Request::is('cv') ? 'class="active"' : '') }}><a href="{{ (Request::is('') ? '#' : '#') }}" data-toggle="tooltip" data-placement="bottom" title="Soon &#0153;">CV</a></li>
+            <li {{ (Request::is('skills') ? 'class="active"' : '') }}><a href="{{ (Request::is('') ? '#' : '#') }}" data-toggle="tooltip" data-placement="bottom" title="Soon &#0153;">Skills</a></li>
+            <li {{ (Request::is('portfolio') ? 'class="active"' : '') }}><a href="{{ (Request::is('') ? '#' : '#') }}" data-toggle="tooltip" data-placement="bottom" title="Soon &#0153;">Portfolio</a></li>
+            <li {{ (Request::is('about-me') ? 'class="active"' : '') }}><a href="{{ (Request::is('') ? '#' : '#') }}" data-toggle="tooltip" data-placement="bottom" title="Soon &#0153;">About me</a></li>
+            <li {{ (Request::is('blog') ? 'class="active"' : '') }}><a href="{{ URL::route('blog.index') }}">Blog</a></li>
+            <li {{ (Request::is('contact') ? 'class="active"' : '') }}><a href="{{ (Request::is('') ? '#' : '#') }}" data-toggle="tooltip" data-placement="bottom" title="Soon &#0153;">Get in touch!</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav pull-right">
+            @if (Sentry::check())
+            <li class="dropdown{{ (Request::is('account*') ? ' active' : '') }}">
+              <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="{{ route('account') }}">
+              Welcome, {{ Sentry::getUser()->first_name }}
+              <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                @if(Sentry::getUser()->hasAccess('admin'))
+                <li><a href="#"><i class="icon-cog"></i> Administration</a></li>
+                @endif
+                <li{{ (Request::is('account/profile') ? ' class="active"' : '') }}><a href="{{ route('profile') }}"><i class="icon-user"></i> Your profile</a></li>
+                <li class="divider"></li>
+                <li><a href="{{ route('logout') }}"><i class="icon-off"></i> Logout</a></li>
+              </ul>
+            </li>
+            @else
+            <li {{ (Request::is('auth/login') ? 'class="active"' : '') }}><a href="{{ route('login') }}">Sign in</a></li>
+            <li {{ (Request::is('auth/signup') ? 'class="active"' : '') }}><a href="{{ route('register') }}">Sign up</a></li>
+            @endif
           </ul>
         </div>
       </div>
@@ -56,5 +82,6 @@
     <!-- Bootstrap core JavaScript -->
     <script src="{{ asset('assets/js/jquery-2.0.3.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
   </body>
 </html>

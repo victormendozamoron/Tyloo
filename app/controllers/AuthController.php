@@ -16,7 +16,7 @@ class AuthController extends BaseController {
 		}
 
 		// Show the page
-		return View::make('frontend.auth.login');
+		return View::make('modules.auth.login');
 	}
 
 	/**
@@ -91,7 +91,7 @@ class AuthController extends BaseController {
 		}
 
 		// Show the page
-		return View::make('frontend.auth.register');
+		return View::make('modules.auth.register');
 	}
 
 	/**
@@ -202,7 +202,7 @@ class AuthController extends BaseController {
 	public function getForgotPassword()
 	{
 		// Show the page
-		return View::make('frontend.auth.forgot-password');
+		return View::make('modules.auth.forgot-password');
 	}
 
 	/**
@@ -276,7 +276,7 @@ class AuthController extends BaseController {
 		}
 
 		// Show the page
-		return View::make('frontend.auth.forgot-password-confirm');
+		return View::make('modules.auth.forgot-password-confirm');
 	}
 
 	/**

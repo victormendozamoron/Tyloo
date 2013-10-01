@@ -4,7 +4,7 @@ class HomeController extends BaseController {
 
 	public function getIndex()
 	{
-		return View::make('frontend.home.index');
+		return View::make('modules.home.index');
 	}
 
 }

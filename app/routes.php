@@ -38,6 +38,35 @@ Route::group(array('prefix' => 'auth'), function()
 
 /*
 |--------------------------------------------------------------------------
+| Account Routes
+|--------------------------------------------------------------------------
+|
+|
+|
+*/
+
+Route::group(array('prefix' => 'account'), function()
+{
+
+	# Account Dashboard
+	Route::get('/', array('as' => 'account', 'uses' => 'AccountDashboardController@getIndex'));
+
+	# Profile
+	Route::get('profile', array('as' => 'profile', 'uses' => 'AccountProfileController@getIndex'));
+	Route::post('profile', 'AccountProfileController@postIndex');
+
+	# Change Password
+	Route::get('change-password', array('as' => 'change-password', 'uses' => 'AccountChangePasswordController@getIndex'));
+	Route::post('change-password', 'AccountChangePasswordController@postIndex');
+
+	# Change Email
+	Route::get('change-email', array('as' => 'change-email', 'uses' => 'AccountChangeEmailController@getIndex'));
+	Route::post('change-email', 'AccountChangeEmailController@postIndex');
+
+});
+
+/*
+|--------------------------------------------------------------------------
 | Application Routes
 |--------------------------------------------------------------------------
 |
@@ -48,3 +77,5 @@ Route::group(array('prefix' => 'auth'), function()
 */
 
 Route::get('/', array('as' => 'home', 'uses' => 'HomeController@getIndex'));
+
+Route::resource('blog', 'BlogPostsController');
