@@ -4,19 +4,29 @@ class BlogPostsTableSeeder extends Seeder {
 
 	public function run()
 	{
-		// Uncomment the below to wipe the table clean before populating
+		$this->command->info('Deleting existing BlogPost table...');
 		DB::table('blog_posts')->truncate();
 
-		$blog_posts = [
-		    ['title' => 'Test 1', 'slug' => 'test-1', 'content' => 'Test Blog post content 1', 'draft' => 0, 'lang' => 'fr'],
-		    ['title' => 'Test 2', 'slug' => 'test-2', 'content' => 'Test Blog post content 2', 'draft' => 0, 'lang' => 'fr'],
-		    ['title' => 'Test 3', 'slug' => 'test-3', 'content' => 'Test Blog post content 3', 'draft' => 1, 'lang' => 'en'],
-		    ['title' => 'Test 4', 'slug' => 'test-4', 'content' => 'Test Blog post content 4', 'draft' => 0, 'lang' => 'en'],
-		    ['title' => 'Test 5', 'slug' => 'test-5', 'content' => 'Test Blog post content 5', 'draft' => 1, 'lang' => 'fr'],
-		];
+		$count = 20;
+		$lang = array('fr', 'en');
+		$faker = Faker\Factory::create('fr_FR');
+		$this->command->info('Inserting ' . $count . ' sample Blog Posts...');
 
-		// Uncomment the below to run the seeder
-		DB::table('blog_posts')->insert($blog_posts);
+		for ($i = 0; $i < $count; $i++)
+        {
+        	$title = substr($faker->sentence(8), 0, -1);
+        	BlogPost::create(array(
+                'title' => $title,
+                'slug' => Str::slug($title),
+                'content' => '<p>'.  implode('</p><p>', $faker->paragraphs(5)) .'</p>',
+                'draft' => rand(0, 1),
+                'lang' => $lang[rand(0, 1)],
+                'image' => null,
+                'user_id' => 1,
+            ));
+        }
+
+        $this->command->info('Blog Posts inserted successfully!');
 	}
 
 }

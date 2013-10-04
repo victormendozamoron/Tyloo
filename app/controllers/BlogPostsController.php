@@ -3,14 +3,23 @@
 class BlogPostsController extends BaseController {
 
 	/**
+	 * Initializer.
+	 *
+	 * @return void
+	 */
+	public function __construct() {
+		$this->beforeFilter('admin-auth', array('except' => array('index', 'show')));
+	}
+
+	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
 	public function index()
 	{
-        return View::make('modules.blog.posts.index')
-        	->with('blog_posts', BlogPost::all());
+		return View::make('modules.blog.posts.index')
+			->with('blog_posts', BlogPost::all());
 	}
 
 	/**
@@ -20,18 +29,7 @@ class BlogPostsController extends BaseController {
 	 */
 	public function create()
 	{
-		if (Sentry::check()) {
-			if(Sentry::getUser()->hasAccess('admin')) {
-				return View::make('modules.blog.posts.create');
-			}
-			else {
-				return App::abort(403);
-			}
-		}        
-    	else {
-    		return Redirect::route('login')->with('error', Lang::get('auth/message.account.not_logged'));
-    	}
-
+		return View::make('modules.blog.posts.create');
 	}
 
 	/**
@@ -41,18 +39,26 @@ class BlogPostsController extends BaseController {
 	 */
 	public function store()
 	{
-		//
+		$blog_post = new BlogPost;
+		$blog_post->title   = Input::get('title');
+		$blog_post->slug    = Str::slug(Input::get('title'));
+		$blog_post->content = Input::get('body');
+		$blog_post->user_id = Sentry::getUser()->id;
+		$blog_post->save();
+	 
+		return Redirect::route('blog.show', $blog_post->id);
 	}
 
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  string  $slug
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($slug)
 	{
-        return View::make('modules.blog.posts.show');
+		return View::make('modules.blog.posts.show')
+			->with('blog_post', BlogPost::where('slug', $slug)->first());
 	}
 
 	/**
@@ -63,7 +69,7 @@ class BlogPostsController extends BaseController {
 	 */
 	public function edit($id)
 	{
-        return View::make('modules.blog.posts.edit');
+		return View::make('modules.blog.posts.edit');
 	}
 
 	/**

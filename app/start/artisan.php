@@ -12,5 +12,6 @@
 */
 
 Artisan::add(new TylooAppSetup());
+Artisan::add(new TylooAppReset());
 Artisan::add(new TylooUserAdd());
 Artisan::add(new TylooAdminAdd());

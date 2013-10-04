@@ -9,7 +9,7 @@ class User extends SentryUserModel {
 	 *
 	 * @var bool
 	 */
-	protected $softDelete = true;
+	protected $softDelete = false;
 
 	/**
 	 * Returns the user full name, it simply concatenates

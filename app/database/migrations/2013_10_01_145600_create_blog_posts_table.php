@@ -16,9 +16,11 @@ class CreateBlogPostsTable extends Migration {
 			$table->increments('id');
 			$table->string('title');
 			$table->string('slug');
-			$table->text('content');
+			$table->text('content')->nullable();
 			$table->boolean('draft');
 			$table->string('lang');
+			$table->string('image')->nullable();
+			$table->integer('user_id');
 			$table->timestamps();
 		});
 	}
