@@ -43,7 +43,7 @@ class BlogPostsController extends BaseController {
 		$rules = array(
 			'title'   => 'required|min:3',
 			'content' => 'required|min:3',
-			'image' => 'image|max:300000',
+			'image' => 'image|max:3000000',
 		);
 
 		// Create a new validator instance from our validation rules
