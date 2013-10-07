@@ -23,6 +23,9 @@ class BlogPostsTableSeeder extends Seeder {
                 'lang' => $lang[rand(0, 1)],
                 'image' => null,
                 'user_id' => 1,
+                'meta_title' => 1,
+                'meta_keywords' => 1,
+                'meta_description' => 1,
             ));
         }
 
