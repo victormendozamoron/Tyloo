@@ -27,7 +27,7 @@ Route::group(array('prefix' => 'auth'), function()
 	Route::get('forgot-password', array('as' => 'forgot-password', 'uses' => 'AuthController@getForgotPassword'));
 	Route::post('forgot-password', 'AuthController@postForgotPassword');
 
-	# Forgot Password Confirmation
+	# Forgot Password Confirmatio	n
 	Route::get('forgot-password/{passwordResetCode}', array('as' => 'forgot-password-confirm', 'uses' => 'AuthController@getForgotPasswordConfirm'));
 	Route::post('forgot-password/{passwordResetCode}', 'AuthController@postForgotPasswordConfirm');
 

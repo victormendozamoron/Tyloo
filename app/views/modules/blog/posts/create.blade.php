@@ -23,6 +23,7 @@
 	<div class="form-group{{ $errors->first('image', ' has-error', 'has-success') }}">
 		{{ Form::label('image', 'Image', array('class' => 'col-lg-2 control-label')) }}
 		<div class="col-lg-8">
+		<img src="{{ asset('uploads/blog_posts/' . $post->image) }}">
 			{{ Form::file('image') }}
 			{{ $errors->first('image', '<span class="help-block">:message</span>') }}
 		</div>
