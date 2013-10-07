@@ -14,6 +14,9 @@
     <!-- Summernote CSS -->
     <link href="{{ asset('assets/css/font-awesome.min.css') }}" rel="stylesheet">
 
+    <!-- jqUery TagsInput CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap-tagsinput.css') }}" />
+
     <!-- Summernote CSS -->
     <link href="{{ asset('assets/css/summernote.css') }}" rel="stylesheet">
 
@@ -87,6 +90,7 @@
     <!-- Bootstrap core JavaScript -->
     <script src="{{ asset('assets/js/jquery-2.0.3.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap-tagsinput.min.js') }}"></script>
     <script src="{{ asset('assets/js/summernote.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
   </body>

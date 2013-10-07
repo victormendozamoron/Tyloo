@@ -20,10 +20,16 @@
 			{{ $errors->first('slug', '<span class="help-block">:message</span>') }}
 		</div>
 	</div>
+	<div class="form-group{{ $errors->first('tags', ' has-error', 'has-success') }}">
+		{{ Form::label('tags', 'Tags', array('class' => 'col-lg-2 control-label')) }}
+		<div class="col-lg-8">
+			{{ Form::text('tags', Input::old('tags'), array('class' => 'form-control', 'data-role' => 'tagsinput')) }}
+			{{ $errors->first('tags', '<span class="help-block">:message</span>') }}
+		</div>
+	</div>
 	<div class="form-group{{ $errors->first('image', ' has-error', 'has-success') }}">
 		{{ Form::label('image', 'Image', array('class' => 'col-lg-2 control-label')) }}
 		<div class="col-lg-8">
-		<img src="{{ asset('uploads/blog_posts/' . $post->image) }}">
 			{{ Form::file('image') }}
 			{{ $errors->first('image', '<span class="help-block">:message</span>') }}
 		</div>

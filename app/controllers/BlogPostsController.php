@@ -29,7 +29,8 @@ class BlogPostsController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('modules.blog.posts.create');
+		$tags = BlogTag::all();
+		return View::make('modules.blog.posts.create', compact('tags'));
 	}
 
 	/**
@@ -114,7 +115,12 @@ class BlogPostsController extends BaseController {
 	public function edit($id)
 	{
 		$post = BlogPost::find($id);
-		return View::make('modules.blog.posts.edit', compact('post', 'id'));
+		$tags = null;
+		foreach ($post->tags as $tag) {
+			$tags .= ',' . $tag->name;
+		}
+		$tags = substr($tags, 1);
+		return View::make('modules.blog.posts.edit', compact('post', 'tags', 'id'));
 	}
 
 	/**
