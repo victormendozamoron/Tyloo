@@ -11,6 +11,11 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Summernote CSS -->
+    <link href="{{ asset('assets/css/font-awesome.min.css') }}" rel="stylesheet">
+
+    <!-- Summernote CSS -->
+    <link href="{{ asset('assets/css/summernote.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
@@ -82,6 +87,7 @@
     <!-- Bootstrap core JavaScript -->
     <script src="{{ asset('assets/js/jquery-2.0.3.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/summernote.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
   </body>
 </html>

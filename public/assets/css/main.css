@@ -35,3 +35,7 @@ body { padding-top:70px; }
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.topbar_buttons {
+  margin-bottom:20px;
+}
