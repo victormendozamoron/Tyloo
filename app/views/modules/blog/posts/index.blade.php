@@ -2,26 +2,23 @@
 
 {{-- Page content --}}
 @section('content')
-@if (Sentry::check())
-	@if(Sentry::getUser()->hasAccess('admin'))
-	<div class="text-right topbar_buttons">
-		<a href="{{ URL::route('blog.create') }}" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Create a Post</a>
-	</div>
-	@endif
-@endif
+@include('partials.blog_create')
 
-@foreach($blog_posts as $post)
+@foreach($blog_posts as $blog_post)
 <div class="panel panel-default">
   <div class="panel-heading">
-  	{{{ $post->title }}}
+  	<a href="{{ URL::route('blog.show', array('blog' => $blog_post->slug)) }}">{{{ $blog_post->title }}}</a>
   </div>
   <div class="panel-body">
-    {{ HTML::decode($post->content) }}
-    <a href="{{ URL::route('blog.show', array('blog' => $post->slug)) }}" class="pull-right">View More...</a>
+    @if (!empty($blog_post->image))
+      <img src="{{ asset('uploads/blog_posts/' . $blog_post->image) }}" class="pull-left">
+    @endif
+    {{ HTML::decode($blog_post->content) }}
+    <a href="{{ URL::route('blog.show', array('blog' => $blog_post->slug)) }}" class="pull-right">View More...</a>
   </div>
   <div class="panel-footer">
-  	Posted by {{{ $post->author->first_name }}} {{{ $post->created_at->diffForHumans() }}}
-	<a href="{{ URL::route('blog.edit', array('blog' => $post->id)) }}" class="btn btn-xs btn-info pull-right"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+  	Posted by {{{ $blog_post->author->first_name }}} {{{ $blog_post->created_at->diffForHumans() }}}
+	  @include('partials.blog_edit', array('id' => $blog_post->id))
   </div>
 </div>
 @endforeach
