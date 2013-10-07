@@ -19,7 +19,7 @@ class BlogPostsController extends BaseController {
 	public function index()
 	{
 		return View::make('modules.blog.posts.index')
-			->with('blog_posts', BlogPost::all());
+			->with('blog_posts', BlogPost::paginate(10));
 	}
 
 	/**

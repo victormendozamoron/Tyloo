@@ -12,10 +12,12 @@ class BlogPostsTableSeeder extends Seeder {
 		$faker = Faker\Factory::create('fr_FR');
 		$this->command->info('Inserting ' . $count . ' sample Blog Posts...');
 
+        $count = BlogTag::all()->count();
+
 		for ($i = 0; $i < $count; $i++)
         {
         	$title = substr($faker->sentence(8), 0, -1);
-        	BlogPost::create(array(
+        	$post = BlogPost::create(array(
                 'title' => $title,
                 'slug' => Str::slug($title),
                 'content' => '<p>'.  implode('</p><p>', $faker->paragraphs(5)) .'</p>',
@@ -27,6 +29,11 @@ class BlogPostsTableSeeder extends Seeder {
                 'meta_keywords' => 1,
                 'meta_description' => 1,
             ));
+
+            $nb_occur = rand(1, 4);
+            for ($j = 0; $j < $nb_occur; $j++) {
+                $post->tags()->attach(rand(0, $count));
+            }
         }
 
         $this->command->info('Blog Posts inserted successfully!');
