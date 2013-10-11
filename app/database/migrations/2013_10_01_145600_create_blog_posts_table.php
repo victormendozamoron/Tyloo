@@ -22,7 +22,7 @@ class CreateBlogPostsTable extends Migration {
 			$table->string('image')->nullable();
 			$table->string('meta_title')->nullable();
 			$table->string('meta_keywords')->nullable();
-			$table->string('meta_description')->nullable();
+			$table->text('meta_description')->nullable();
 			$table->integer('user_id');
 			$table->timestamps();
 		});

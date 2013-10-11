@@ -5,6 +5,7 @@
 <div class="page-header">
 	<h3>Edit a Blog Post</h3>
 </div>
+
 {{ Form::open(array('method' => 'PUT', 'route' => array('blog.update', $id), 'files' => true, 'class' => 'form-horizontal blogpost_form', 'role' => 'form')) }}
 	<div class="form-group{{ $errors->first('title', ' has-error', 'has-success') }}">
 		{{ Form::label('title', 'Title', array('class' => 'col-lg-2 control-label')) }}
@@ -23,7 +24,7 @@
 	<div class="form-group{{ $errors->first('tags', ' has-error', 'has-success') }}">
 		{{ Form::label('tags', 'Tags', array('class' => 'col-lg-2 control-label')) }}
 		<div class="col-lg-8">
-			{{ Form::text('tags', Input::old('tags', $tags), array('class' => 'form-control', 'data-role' => 'tagsinput')) }}
+			{{ Form::text('tags', Input::old('tags', $tags), array('class' => 'form-control')) }}
 			{{ $errors->first('tags', '<span class="help-block">:message</span>') }}
 		</div>
 	</div>
@@ -40,7 +41,8 @@
 	<div class="form-group{{ $errors->first('content', ' has-error', 'has-success') }}">
 		{{ Form::label('content', 'Content', array('class' => 'col-lg-2 control-label')) }}
 		<div class="col-lg-8">
-			{{ Form::textarea('content', Input::old('content', isset($post) ? $post->content : null), array('class' => 'form-control summernote')) }}
+			<div id="summernote">{{ HTML::decode(Input::old('content', isset($post) ? $post->content : '<p></p>')) }}</div>
+			{{ Form::hidden('content', Input::old('content')) }}
 			{{ $errors->first('content', '<span class="help-block">:message</span>') }}
 		</div>
 	</div>

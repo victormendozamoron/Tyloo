@@ -1,6 +1,7 @@
 <?php
 
 class BlogPostsController extends BaseController {
+	private $destinationPath = 'public/uploads/blog_posts/';
 
 	/**
 	 * Initializer.
@@ -30,7 +31,7 @@ class BlogPostsController extends BaseController {
 	public function create()
 	{
 		$tags = BlogTag::all();
-		return View::make('modules.blog.posts.create', compact('tags'));
+		return View::make('modules.blog.posts.create');
 	}
 
 	/**
@@ -43,8 +44,8 @@ class BlogPostsController extends BaseController {
 		// Declare the rules for the form validation
 		$rules = array(
 			'title'   => 'required|min:3',
-			'content' => 'required|min:3',
-			'image' => 'image|max:3000000',
+			'content' => 'required|min:3|not_in:<p></p>',
+			'image' => 'image|max:30000000',
 		);
 
 		// Create a new validator instance from our validation rules
@@ -77,15 +78,28 @@ class BlogPostsController extends BaseController {
 
 		$image = Input::file('image');
         if ( ! empty($image)) {
-        	$destinationPath = 'uploads/blog_posts/';
 	        $filename = $post->slug . '_' . date('d-m-Y') . '.' . $image->getClientOriginalExtension();
-	        $uploadSuccess = Input::file('image')->move($destinationPath, $filename);
+	        $uploadSuccess = Input::file('image')->move($this->destinationPath, $filename);
 	        $post->image            = e($filename);
 	    }
 
 		// Was the blog post created?
 		if($post->save())
 		{
+			$tags = explode(',', Input::get('tags'));
+			foreach ($tags as $tag) {
+				if (BlogTag::where('name', '=', $tag)->count() == 0) {
+					$newTag = new BlogTag;
+					$newTag->name = ucwords($tag);
+					$newTag->slug = Str::slug($tag);
+					$newTag->save();
+				}
+				else {
+					$newTag = BlogTag::where('name', '=', $tag)->first();
+				}
+				$post->tags()->attach($newTag->id);
+			}
+
 			// Redirect to the new blog post page
 			return Redirect::route('blog.show', array('blog' => $post->slug))->with('success', Lang::get('blogs/message.create.success'));
 		}
@@ -134,7 +148,7 @@ class BlogPostsController extends BaseController {
 		// Declare the rules for the form validation
 		$rules = array(
 			'title'   => 'required|min:3',
-			'content' => 'required|min:3',
+			'content' => 'required|min:3|not_in:<p></p>',
 			'image' => 'image|max:3000000',
 		);
 
@@ -167,15 +181,30 @@ class BlogPostsController extends BaseController {
 
 		$image = Input::file('image');
 		if ( ! empty($image)) {
-	        $destinationPath = 'uploads/blog_posts/';
+			unlink($this->destinationPath . $post->image);
 	        $filename = $post->slug . '_' . date('d-m-Y') . '.' . $image->getClientOriginalExtension();
-	        $uploadSuccess = Input::file('image')->move($destinationPath, $filename);
+	        $uploadSuccess = Input::file('image')->move($this->destinationPath, $filename);
 	        $post->image            = e($filename);
 	    }
 
 		// Was the blog post created?
 		if($post->save())
 		{
+			$post->tags()->detach();
+			$tags = explode(',', Input::get('tags'));
+			foreach ($tags as $tag) {
+				if (BlogTag::where('name', '=', $tag)->count() == 0) {
+					$newTag = new BlogTag;
+					$newTag->name = ucwords($tag);
+					$newTag->slug = Str::slug($tag);
+					$newTag->save();
+				}
+				else {
+					$newTag = BlogTag::where('name', '=', $tag)->first();
+				}
+				$post->tags()->attach($newTag->id);
+			}
+
 			// Redirect to the new blog post page
 			return Redirect::route('blog.show', array('blog' => $post->slug))->with('success', Lang::get('blogs/message.edit.success'));
 		}

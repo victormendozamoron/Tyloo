@@ -9,13 +9,13 @@
   	{{{ $blog_post->title }}}
   </div>
   <div class="panel-body">
-    @if (!empty($post->image))
-      <img src="{{ asset('uploads/blog_posts/' . $post->image) }}" class="pull-left">
+    @if (!empty($blog_post->image))
+      <img src="{{ asset('uploads/blog_posts/' . $blog_post->image) }}" class="pull-left">
     @endif
     {{ HTML::decode($blog_post->content) }}
   </div>
   <div class="panel-footer">
-  	Posted by {{{ $blog_post->author->first_name }}} {{{ $blog_post->created_at->diffForHumans() }}}
+  	Posted by {{{ $blog_post->author->first_name }}} {{{ $blog_post->created_at->diffForHumans() }}} | @foreach($blog_post->tags as $tag) <span class="label label-primary"><span class="glyphicon glyphicon-tag"></span> {{ $tag->name }}</span> @endforeach
   	@include('partials.blog_edit', array('id' => $blog_post->id))
   </div>
 </div>

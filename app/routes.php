@@ -77,5 +77,9 @@ Route::group(array('prefix' => 'account'), function()
 */
 
 Route::get('/', array('as' => 'home', 'uses' => 'HomeController@getIndex'));
-
+Route::get('blog/cats.json', function()
+{
+    return BlogTag::all()->lists('name');
+});
 Route::resource('blog', 'BlogPostsController');
+

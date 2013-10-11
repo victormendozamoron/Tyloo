@@ -16,23 +16,27 @@ class BlogPostsTableSeeder extends Seeder {
 
 		for ($i = 0; $i < $count; $i++)
         {
-        	$title = substr($faker->sentence(8), 0, -1);
+        	$title = e(substr($faker->sentence(8), 0, -1));
+            $content = '<p>'.  implode('</p><p>', $faker->paragraphs(5)) .'</p>';
         	$post = BlogPost::create(array(
                 'title' => $title,
                 'slug' => Str::slug($title),
-                'content' => '<p>'.  implode('</p><p>', $faker->paragraphs(5)) .'</p>',
+                'content' => e($content),
                 'draft' => rand(0, 1),
                 'lang' => $lang[rand(0, 1)],
                 'image' => null,
                 'user_id' => 1,
-                'meta_title' => 1,
-                'meta_keywords' => 1,
-                'meta_description' => 1,
+                'meta_title' => e($title),
+                'meta_keywords' => str_replace(' ', ', ', strtolower($title)),
+                'meta_description' => strip_tags($content),
             ));
 
             $nb_occur = rand(1, 4);
+            $range = range(1, 5);
+            shuffle($range);
+
             for ($j = 0; $j < $nb_occur; $j++) {
-                $post->tags()->attach(rand(0, $count));
+                echo $post->tags()->attach($range[$j]);
             }
         }
 

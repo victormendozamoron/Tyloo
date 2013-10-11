@@ -23,7 +23,7 @@
 	<div class="form-group{{ $errors->first('tags', ' has-error', 'has-success') }}">
 		{{ Form::label('tags', 'Tags', array('class' => 'col-lg-2 control-label')) }}
 		<div class="col-lg-8">
-			{{ Form::text('tags', Input::old('tags'), array('class' => 'form-control', 'data-role' => 'tagsinput')) }}
+			{{ Form::text('tags', Input::old('tags'), array('class' => 'form-control')) }}
 			{{ $errors->first('tags', '<span class="help-block">:message</span>') }}
 		</div>
 	</div>
@@ -37,7 +37,8 @@
 	<div class="form-group{{ $errors->first('content', ' has-error', 'has-success') }}">
 		{{ Form::label('content', 'Content', array('class' => 'col-lg-2 control-label')) }}
 		<div class="col-lg-8">
-			{{ Form::textarea('content', Input::old('content'), array('class' => 'form-control summernote')) }}
+			<div id="summernote">{{ HTML::decode(Input::old('content', '<p></p>')) }}</div>
+			{{ Form::hidden('content', Input::old('content')) }}
 			{{ $errors->first('content', '<span class="help-block">:message</span>') }}
 		</div>
 	</div>

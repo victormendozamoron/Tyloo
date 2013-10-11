@@ -47,6 +47,10 @@ class TylooAppReset extends Command {
 		// Seed the tables with dummy data
 		$this->call('db:seed');
 
+		// Delete all the uploaded files
+		$this->clean_files();
+
+		// Install the users and groups
 		$this->sentryRunner();
 	}
 
@@ -154,6 +158,19 @@ class TylooAppReset extends Command {
 		$this->comment('');
 		$this->info('Your User was created successfully.');
 		$this->comment('');
+	}
+
+	/**
+	 * Delete all the uploaded files.
+	 *
+	 * @return void
+	 */
+	protected function clean_files() {
+		$files = glob('public/uploads/blog_posts/*');
+		foreach ($files as $file) {
+		  if (is_file ($file))
+		    unlink ($file);
+		}
 	}
 
 }

@@ -9,19 +9,19 @@
 
     <title>Tyloo.fr</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
-    <!-- Summernote CSS -->
-    <link href="{{ asset('assets/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('assets/css/font-awesome.min.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('assets/css/bootstrap-tagsinput.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('assets/css/summernote.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('assets/css/main.css') }}" type="text/css" rel="stylesheet">
 
-    <!-- jqUery TagsInput CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap-tagsinput.css') }}" />
-
-    <!-- Summernote CSS -->
-    <link href="{{ asset('assets/css/summernote.css') }}" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
+    <!-- Bootstrap core JavaScript -->
+    <script src="{{ asset('assets/js/jquery-2.0.3.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap-tagsinput.js') }}"></script>
+    <script src="{{ asset('assets/js/typeahead.min.js') }}"></script>
+    <script src="{{ asset('assets/js/summernote.min.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -85,13 +85,5 @@
       <!-- Content -->
       @yield('content')
     </div>
-
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="{{ asset('assets/js/jquery-2.0.3.min.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap-tagsinput.min.js') }}"></script>
-    <script src="{{ asset('assets/js/summernote.min.js') }}"></script>
-    <script src="{{ asset('assets/js/main.js') }}"></script>
   </body>
 </html>
