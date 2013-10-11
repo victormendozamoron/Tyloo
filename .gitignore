@@ -3,3 +3,4 @@
 /app/config/mail.php
 composer.lock
 .DS_Store
+/public/uploads/blog_posts/*
