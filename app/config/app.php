@@ -188,4 +188,22 @@ return array(
 
 	),
 
+	/*
+	|--------------------------------------------------------------------------
+	| Admin Email Infos
+	|--------------------------------------------------------------------------
+	|
+	| This allows you to set an Admin Email & Name information. Then you'll be
+	| abke to send emails to this person.
+	| (TODO : Send it to Website SuperAdmin)
+	|
+	*/
+
+	'admin' => array(
+
+		'email'	=> 'jbonva@gmail.com',
+		'name'	=> 'Julien Bonvarlet',
+
+	),
+
 );

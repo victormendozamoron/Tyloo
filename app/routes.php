@@ -82,4 +82,5 @@ Route::get('blog/cats.json', function()
     return BlogTag::all()->lists('name');
 });
 Route::resource('blog', 'BlogPostsController');
-
+Route::get('contact', array('as' => 'contact', 'uses' => 'ContactController@getIndex'));
+Route::post('contact', 'ContactController@postIndex');
