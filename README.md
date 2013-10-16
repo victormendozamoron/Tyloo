@@ -12,7 +12,8 @@ ROADMAP
 - (OK) Créer le Blog (avec un wysiwyg).
 - (OK) Créer le Portfolio (avec un wysiwyg).
 - (OK) Créer un module de gestion de contenu dynamique.
+- (OK) Ajout d'un filtre par tags (blog).
+- Rework gestion des erreurs.
 - Rework des vues et de la structure (lang & views).
 - Création d'un panel admin chef d'orchestre.
-- (OK) Ajout d'un filtre par tags (blog).
 - Tests unitaires au fur et à mesure.

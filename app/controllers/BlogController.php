@@ -28,6 +28,17 @@ class BlogController extends BaseController {
 	 *
 	 * @return Response
 	 */
+	public function admin()
+	{
+		$blog_posts = BlogPost::all();
+		return View::make('modules.blog.posts.admin', compact('blog_posts'));
+	}
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
 	public function getPostsByTag($slug)
 	{
 		$tag = BlogTag::where('slug', '=', $slug)->first();
@@ -233,7 +244,59 @@ class BlogController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		// Get the page data
+		if (is_null($post = BlogPost::find($id)))
+		{
+			// Redirect to BlogPost management page
+			return Redirect::to('blog.admin')->with('error', Lang::get('blog/message.not_found'));
+		}
+
+		if ( ! empty($post->image)) {
+			unlink($this->destinationPath . $post->image);
+		}
+		$post->tags()->detach();
+		foreach (BlogTag::all() as $tag) {
+			if ( ! $tag->posts->count()) {
+				$tag->delete();
+			}
+		}
+		// Was the page created?
+		if($post->delete())
+		{
+			// Redirect to the BlogPost management page
+			return Redirect::route('blog.admin')->with('success', Lang::get('blog/message.edit.success'));
+		}
+
+		// Redirect to the BlogPost management page
+		return Redirect::route('blog.admin')->with('error', Lang::get('blog/message.publish.error'));
+	}
+
+	/**
+	 * Publish or UnPublish a post.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function publish($id, $state)
+	{
+		// Get the page data
+		if (is_null($post = BlogPost::find($id)))
+		{
+			// Redirect to Page management page
+			return Redirect::to('blog.admin')->with('error', Lang::get('blog/message.not_found'));
+		}
+
+		$post->draft = $state;
+
+		// Was the page created?
+		if($post->save())
+		{
+			// Redirect to the new page page
+			return Redirect::route('blog.admin')->with('success', Lang::get('blog/message.edit.success'));
+		}
+
+		// Redirect to the pagecreate page
+		return Redirect::route('blog.admin')->with('error', Lang::get('blog/message.publish.error'));
 	}
 
 }

@@ -14,6 +14,7 @@
       <th>Created at</th>
       <th>Author</th>
       <th>Actions</th>
+    </tr>
   </thead>
   <tbody>
 @foreach($pages as $page)
@@ -27,8 +28,8 @@
       <td>{{{ $page->author->fullName() }}}</td>
       <td>
       <a href="{{ URL::route('page.show', array('slug' => $page->slug)) }}" class="btn btn-info btn-xs"><i class="icon-eye-open"></i> Show</a>
-      <a href="{{ URL::route('page.edit', array('id' => $page->id)) }}" class="btn btn-primary btn-xs"><i class="icon-edit"></i> Edit</a>
-      <a href="{{ URL::route('page.destroy', array('id' => $page->id)) }}" class="btn btn-danger btn-xs"><i class="icon-remove"></i> Delete</a>
+      <a href="{{ URL::route('page.edit', array('page' => $page->id)) }}" class="btn btn-primary btn-xs"><i class="icon-edit"></i> Edit</a>
+      <a href="{{ URL::route('page.destroy', array('page' => $page->id)) }}" class="btn btn-danger btn-xs"><i class="icon-remove"></i> Delete</a>
       @if ($page->draft == true)
         <a href="{{ URL::route('page.publish', array('id' => $page->id, 'state' => 0)) }}" class="btn btn-success btn-xs"><i class="icon-plus"></i> Publish</a>
       @else

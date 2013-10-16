@@ -89,26 +89,30 @@ Route::group(array('prefix' => 'account'), function()
 */
 
 Route::get('/', array('as' => 'home', 'uses' => 'HomeController@getIndex'));
+
+// Blog
+Route::get('blog/admin', array('as' => 'blog.admin', 'uses' => 'BlogController@admin'));
+Route::get('blog/{id}/publish/{state}', array('as' => 'blog.publish', 'uses' => 'BlogController@publish'));
+Route::get('blog/tag/{slug}', array('as' => 'blog.postsByTag', 'uses' => 'BlogController@getPostsByTag'));
 Route::get('blog/cats.json', function()
 {
     return BlogTag::all()->lists('name');
 });
-Route::get('blog/tag/{slug}', array('as' => 'blog.postsByTag', 'uses' => 'BlogController@getPostsByTag'));
 Route::resource('blog', 'BlogController');
+
+// Portfolio
+Route::get('portfolio/admin', array('as' => 'portfolio.admin', 'uses' => 'PortfolioController@admin'));
+Route::get('portfolio/{id}/publish/{state}', array('as' => 'portfolio.publish', 'uses' => 'PortfolioController@publish'));
 Route::resource('portfolio', 'PortfolioController');
 
+// Contact
 Route::get('contact', array('as' => 'contact', 'uses' => 'ContactController@getIndex'));
 Route::post('contact', 'ContactController@postIndex');
 
-Route::group(array('prefix' => 'page'), function()
-{
-	Route::get('/', array('as' => 'page.index', 'uses' => 'PageController@index'));
-	Route::get('create', array('as' => 'page.create', 'uses' => 'PageController@create'));
-	Route::post('create', array('as' => 'page.store', 'uses' => 'PageController@store'));
-	Route::get('edit/{id}', array('as' => 'page.edit', 'uses' => 'PageController@edit'));
-	Route::post('edit/{id}', array('as' => 'page.update', 'uses' => 'PageController@update'));
-	Route::get('destroy/{id}', array('as' => 'page.destroy', 'uses' => 'PageController@destroy'));
-	Route::get('publish/{id}/{state}', array('as' => 'page.publish', 'uses' => 'PageController@publish'));
-	Route::get('inMenu/{id}/{state}', array('as' => 'page.inMenu', 'uses' => 'PageController@inMenu'));
-});
+// Page
+Route::get('page/{id}/publish/{state}', array('as' => 'page.publish', 'uses' => 'PageController@publish'));
+Route::get('page/{id}/inMenu/{state}', array('as' => 'page.inMenu', 'uses' => 'PageController@inMenu'));
+Route::resource('page', 'PageController');
+
+// Page Display
 Route::get('{slug}', array('as' => 'page.show', 'uses' => 'PageController@show'));

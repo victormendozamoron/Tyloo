@@ -24,6 +24,17 @@ class PortfolioController extends BaseController {
 	}
 
 	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function admin()
+	{
+		$portfolio_posts = PortfolioPost::all();
+		return View::make('modules.portfolio.posts.admin', compact('portfolio_posts'));
+	}
+
+	/**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return Response
@@ -221,7 +232,59 @@ class PortfolioController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		// Get the page data
+		if (is_null($post = PortfolioPost::find($id)))
+		{
+			// Redirect to Page management page
+			return Redirect::to('portfolio.admin')->with('error', Lang::get('portfolio/message.not_found'));
+		}
+
+		if ( ! empty($post->image)) {
+			unlink($this->destinationPath . $post->image);
+		}
+		$post->tags()->detach();
+		foreach (PortfolioTag::all() as $tag) {
+			if ( ! $tag->posts->count()) {
+				$tag->delete();
+			}
+		}
+		// Was the page created?
+		if($post->delete())
+		{
+			// Redirect to the new page page
+			return Redirect::route('portfolio.admin')->with('success', Lang::get('portfolio/message.edit.success'));
+		}
+
+		// Redirect to the page admin page
+		return Redirect::route('portfolio.admin')->with('error', Lang::get('portfolio/message.publish.error'));
+	}
+
+	/**
+	 * Publish or UnPublish a post.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function publish($id, $state)
+	{
+		// Get the page data
+		if (is_null($post = PortfolioPost::find($id)))
+		{
+			// Redirect to Portfolio management page
+			return Redirect::to('portfolio.admin')->with('error', Lang::get('portfolio/message.not_found'));
+		}
+
+		$post->draft = $state;
+
+		// Was the page created?
+		if($post->save())
+		{
+			// Redirect to the Portfolio management page
+			return Redirect::route('portfolio.admin')->with('success', Lang::get('portfolio/message.edit.success'));
+		}
+
+		// Redirect to the Portfolio management page
+		return Redirect::route('portfolio.admin')->with('error', Lang::get('portfolio/message.publish.error'));
 	}
 
 }
