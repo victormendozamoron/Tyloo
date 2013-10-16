@@ -1,22 +1,22 @@
 <?php
 
-class BlogPostsTableSeeder extends Seeder {
+class PortfolioPostsTableSeeder extends Seeder {
 
 	public function run()
 	{
-		$this->command->info('Deleting existing BlogPost table...');
-		DB::table('blog_posts')->truncate();
+		$this->command->info('Deleting existing PortfolioPost table...');
+		DB::table('portfolio_posts')->truncate();
 
 		$count = 20;
 		$lang = array('fr', 'en');
 		$faker = Faker\Factory::create('fr_FR');
-		$this->command->info('Inserting ' . $count . ' sample Blog Posts...');
+		$this->command->info('Inserting ' . $count . ' sample Portfolio Posts...');
 
 		for ($i = 0; $i < $count; $i++)
         {
         	$title = e(substr($faker->sentence(8), 0, -1));
             $content = '<p>'.  implode('</p><p>', $faker->paragraphs(5)) .'</p>';
-        	$post = BlogPost::create(array(
+        	$post = PortfolioPost::create(array(
                 'title' => $title,
                 'slug' => Str::slug($title),
                 'content' => e($content),
@@ -38,7 +38,7 @@ class BlogPostsTableSeeder extends Seeder {
             }
         }
 
-        $this->command->info('Blog Posts inserted successfully!');
+        $this->command->info('Portfolio Posts inserted successfully!');
 	}
 
 }

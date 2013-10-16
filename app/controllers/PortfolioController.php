@@ -1,7 +1,7 @@
 <?php
 
-class BlogPostsController extends BaseController {
-	private $destinationPath = 'public/uploads/blog_posts/';
+class PortfolioController extends BaseController {
+	private $destinationPath = 'public/uploads/portfolio_posts/';
 
 	/**
 	 * Initializer.
@@ -19,8 +19,8 @@ class BlogPostsController extends BaseController {
 	 */
 	public function index()
 	{
-		return View::make('modules.blog.posts.index')
-			->with('blog_posts', BlogPost::paginate(10));
+		return View::make('modules.portfolio.posts.index')
+			->with('portfolio_posts', PortfolioPost::paginate(10));
 	}
 
 	/**
@@ -30,8 +30,8 @@ class BlogPostsController extends BaseController {
 	 */
 	public function create()
 	{
-		$tags = BlogTag::all();
-		return View::make('modules.blog.posts.create');
+		$tags = PortfolioTag::all();
+		return View::make('modules.portfolio.posts.create');
 	}
 
 	/**
@@ -58,10 +58,10 @@ class BlogPostsController extends BaseController {
 			return Redirect::back()->withInput()->withErrors($validator);
 		}
 
-		// Create a new blog post
-		$post = new BlogPost;
+		// Create a new portfolio post
+		$post = new PortfolioPost;
 
-		// Update the blog post data
+		// Update the portfolio post data
 		$post->title            = e(Input::get('title'));
 		if (empty($post->slug))
 			$post->slug         = e(Str::slug(Input::get('title')));
@@ -83,29 +83,29 @@ class BlogPostsController extends BaseController {
 	        $post->image            = e($filename);
 	    }
 
-		// Was the blog post created?
+		// Was the portfolio post created?
 		if($post->save())
 		{
 			$tags = explode(',', Input::get('tags'));
 			foreach ($tags as $tag) {
-				if (BlogTag::where('name', '=', $tag)->count() == 0) {
-					$newTag = new BlogTag;
+				if (PortfolioTag::where('name', '=', $tag)->count() == 0) {
+					$newTag = new PortfolioTag;
 					$newTag->name = ucwords($tag);
 					$newTag->slug = Str::slug($tag);
 					$newTag->save();
 				}
 				else {
-					$newTag = BlogTag::where('name', '=', $tag)->first();
+					$newTag = PortfolioTag::where('name', '=', $tag)->first();
 				}
 				$post->tags()->attach($newTag->id);
 			}
 
-			// Redirect to the new blog post page
-			return Redirect::route('blog.show', array('blog' => $post->slug))->with('success', Lang::get('blogs/message.create.success'));
+			// Redirect to the new portfolio post page
+			return Redirect::route('portfolio.show', array('portfolio' => $post->slug))->with('success', Lang::get('portfolios/message.create.success'));
 		}
 
-		// Redirect to the blog post create page
-		return Redirect::route('blog.create')->with('error', Lang::get('blogs/message.create.error'));
+		// Redirect to the portfolio post create page
+		return Redirect::route('portfolio.create')->with('error', Lang::get('portfolios/message.create.error'));
 	}
 
 	/**
@@ -116,8 +116,8 @@ class BlogPostsController extends BaseController {
 	 */
 	public function show($slug)
 	{
-		return View::make('modules.blog.posts.show')
-			->with('blog_post', BlogPost::where('slug', $slug)->first());
+		return View::make('modules.portfolio.posts.show')
+			->with('portfolio_post', PortfolioPost::where('slug', $slug)->first());
 	}
 
 	/**
@@ -128,13 +128,13 @@ class BlogPostsController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$post = BlogPost::find($id);
+		$post = PortfolioPost::find($id);
 		$tags = null;
 		foreach ($post->tags as $tag) {
 			$tags .= ',' . $tag->name;
 		}
 		$tags = substr($tags, 1);
-		return View::make('modules.blog.posts.edit', compact('post', 'tags', 'id'));
+		return View::make('modules.portfolio.posts.edit', compact('post', 'tags', 'id'));
 	}
 
 	/**
@@ -162,10 +162,10 @@ class BlogPostsController extends BaseController {
 			return Redirect::back()->withInput()->withErrors($validator);
 		}
 
-		// Create a new blog post
-		$post = BlogPost::find($id);
+		// Create a new portfolio post
+		$post = PortfolioPost::find($id);
 
-		// Update the blog post data
+		// Update the portfolio post data
 		$post->title            = e(Input::get('title'));
 		if (empty($post->slug))
 			$post->slug         = e(Str::slug(Input::get('title')));
@@ -187,30 +187,30 @@ class BlogPostsController extends BaseController {
 	        $post->image            = e($filename);
 	    }
 
-		// Was the blog post created?
+		// Was the portfolio post created?
 		if($post->save())
 		{
 			$post->tags()->detach();
 			$tags = explode(',', Input::get('tags'));
 			foreach ($tags as $tag) {
-				if (BlogTag::where('name', '=', $tag)->count() == 0) {
-					$newTag = new BlogTag;
+				if (PortfolioTag::where('name', '=', $tag)->count() == 0) {
+					$newTag = new PortfolioTag;
 					$newTag->name = ucwords($tag);
 					$newTag->slug = Str::slug($tag);
 					$newTag->save();
 				}
 				else {
-					$newTag = BlogTag::where('name', '=', $tag)->first();
+					$newTag = PortfolioTag::where('name', '=', $tag)->first();
 				}
 				$post->tags()->attach($newTag->id);
 			}
 
-			// Redirect to the new blog post page
-			return Redirect::route('blog.show', array('blog' => $post->slug))->with('success', Lang::get('blogs/message.edit.success'));
+			// Redirect to the new portfolio post page
+			return Redirect::route('portfolio.show', array('portfolio' => $post->slug))->with('success', Lang::get('portfolios/message.edit.success'));
 		}
 
-		// Redirect to the blog post create page
-		return Redirect::route('blog.create')->with('error', Lang::get('blogs/message.edit.error'));
+		// Redirect to the portfolio post create page
+		return Redirect::route('portfolio.create')->with('error', Lang::get('portfolios/message.edit.error'));
 	}
 
 	/**

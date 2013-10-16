@@ -45,12 +45,12 @@
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li {{ (Request::is('/') ? 'class="active"' : '') }}><a href="{{ (Request::is('/') ? '#' : URL::route('home')) }}">Home</a></li>
-            <li {{ (Request::is('cv') ? 'class="active"' : '') }}><a href="{{ (Request::is('') ? '#' : '#') }}" data-toggle="tooltip" data-placement="bottom" title="Soon &#0153;">CV</a></li>
-            <li {{ (Request::is('skills') ? 'class="active"' : '') }}><a href="{{ (Request::is('') ? '#' : '#') }}" data-toggle="tooltip" data-placement="bottom" title="Soon &#0153;">Skills</a></li>
-            <li {{ (Request::is('portfolio') ? 'class="active"' : '') }}><a href="{{ (Request::is('') ? '#' : '#') }}" data-toggle="tooltip" data-placement="bottom" title="Soon &#0153;">Portfolio</a></li>
-            <li {{ (Request::is('about-me') ? 'class="active"' : '') }}><a href="{{ (Request::is('') ? '#' : '#') }}" data-toggle="tooltip" data-placement="bottom" title="Soon &#0153;">About me</a></li>
+            <li {{ (Request::is('portfolio') ? 'class="active"' : '') }}><a href="{{ (Request::is('portfolio') ? '#' : URL::route('portfolio.index')) }}">Portfolio</a></li>
             <li {{ (Request::is('blog') ? 'class="active"' : '') }}><a href="{{ (Request::is('blog') ? '#' : URL::route('blog.index')) }}">Blog</a></li>
             <li {{ (Request::is('contact') ? 'class="active"' : '') }}><a href="{{ (Request::is('contact') ? '#' : URL::route('contact')) }}">Get in touch!</a></li>
+            @foreach ($menu_pages as $page)
+              <li {{ (Request::is($page->slug) ? 'class="active"' : '') }}><a href="{{ (Request::is($page->slug) ? '#' : URL::route('page.show', array('slug' => $page->slug))) }}">{{ $page->title }}</a></li>
+            @endforeach
           </ul>
 
           <ul class="nav navbar-nav pull-right">

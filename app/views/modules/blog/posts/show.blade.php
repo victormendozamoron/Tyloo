@@ -2,7 +2,7 @@
 
 {{-- Page content --}}
 @section('content')
-@include('partials.blog_create')
+@include('partials.post_create', array('type' => 'blog'))
 
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -16,7 +16,7 @@
   </div>
   <div class="panel-footer">
   	Posted by {{{ $blog_post->author->first_name }}} {{{ $blog_post->created_at->diffForHumans() }}} | @foreach($blog_post->tags as $tag) <span class="label label-primary"><span class="glyphicon glyphicon-tag"></span> {{ $tag->name }}</span> @endforeach
-  	@include('partials.blog_edit', array('id' => $blog_post->id))
+  	@include('partials.post_edit', array('type' => 'blog', 'id' => $blog_post->id))
   </div>
 </div>
 @stop

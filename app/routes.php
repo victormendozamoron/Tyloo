@@ -9,6 +9,8 @@
 |
 */
 
+View::share('menu_pages', Page::where('in_menu', '=', 1)->get(array('title', 'slug')));
+
 Route::group(array('prefix' => 'auth'), function()
 {
 
@@ -81,6 +83,14 @@ Route::get('blog/cats.json', function()
 {
     return BlogTag::all()->lists('name');
 });
-Route::resource('blog', 'BlogPostsController');
+Route::resource('blog', 'BlogController');
+Route::resource('portfolio', 'PortfolioController');
+
 Route::get('contact', array('as' => 'contact', 'uses' => 'ContactController@getIndex'));
 Route::post('contact', 'ContactController@postIndex');
+
+Route::get('{slug}', array('as' => 'page.show', 'uses' => 'PageController@show'));
+Route::get('page/create', array('as' => 'page.create', 'uses' => 'PageController@create'));
+Route::post('page/create', array('as' => 'page.store', 'uses' => 'PageController@store'));
+Route::get('page/edit/{id}', array('as' => 'page.edit', 'uses' => 'PageController@edit'));
+Route::post('page/edit/{id}', array('as' => 'page.update', 'uses' => 'PageController@update'));
