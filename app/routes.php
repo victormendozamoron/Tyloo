@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| Authentication and Authorization Routes
+| Top menu data
 |--------------------------------------------------------------------------
 |
 |
@@ -10,6 +10,15 @@
 */
 
 View::share('menu_pages', Page::where('in_menu', '=', 1)->get(array('title', 'slug')));
+
+/*
+|--------------------------------------------------------------------------
+| Authentication and Authorization Routes
+|--------------------------------------------------------------------------
+|
+|
+|
+*/
 
 Route::group(array('prefix' => 'auth'), function()
 {
@@ -51,19 +60,20 @@ Route::group(array('prefix' => 'account'), function()
 {
 
 	# Account Dashboard
-	Route::get('/', array('as' => 'account', 'uses' => 'AccountDashboardController@getIndex'));
+	Route::get('/', array('as' => 'account', 'uses' => 'AccountController@getIndex'));
+	Route::post('/', 'AccountController@postIndex');
 
 	# Profile
-	Route::get('profile', array('as' => 'profile', 'uses' => 'AccountProfileController@getIndex'));
-	Route::post('profile', 'AccountProfileController@postIndex');
+	Route::get('profile', array('as' => 'profile', 'uses' => 'AccountController@getIndex'));
+	Route::post('profile', 'AccountController@postIndex');
 
 	# Change Password
-	Route::get('change-password', array('as' => 'change-password', 'uses' => 'AccountChangePasswordController@getIndex'));
-	Route::post('change-password', 'AccountChangePasswordController@postIndex');
+	Route::get('change-password', array('as' => 'change-password', 'uses' => 'AccountController@getChangePassword'));
+	Route::post('change-password', 'AccountController@postChangePassword');
 
 	# Change Email
-	Route::get('change-email', array('as' => 'change-email', 'uses' => 'AccountChangeEmailController@getIndex'));
-	Route::post('change-email', 'AccountChangeEmailController@postIndex');
+	Route::get('change-email', array('as' => 'change-email', 'uses' => 'AccountController@getChangeEmail'));
+	Route::post('change-email', 'AccountController@postChangeEmail');
 
 });
 

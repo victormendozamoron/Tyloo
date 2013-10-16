@@ -8,9 +8,11 @@ Tyloo.fr basé sur le Framework PHP Laravel 4
 
 ROADMAP
 ========
-- Créer le Backend (authent, modules d'admin) -> Sentry
-- Créer le Blog (avec un wysiwyg Markdown).
-- Créer le CV (avec un wysiwyg Markdown).
-- Créer le Portfolio (avec un wysiwyg Markdown).
-- Créer les diverses pages en statique.
-- Tests unitaires au fur et à mesure
+- (OK) Créer le Backend (authent, modules d'admin) -> Sentry
+- (OK) Créer le Blog (avec un wysiwyg).
+- (OK) Créer le Portfolio (avec un wysiwyg).
+- (OK) Créer un module de gestion de contenu dynamique.
+- Rework des vues et de la structure (lang & views).
+- Création d'un panel admin chef d'orchestre.
+- Ajout d'un filtre par tags (blog).
+- Tests unitaires au fur et à mesure.
