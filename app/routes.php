@@ -100,9 +100,15 @@ Route::resource('portfolio', 'PortfolioController');
 Route::get('contact', array('as' => 'contact', 'uses' => 'ContactController@getIndex'));
 Route::post('contact', 'ContactController@postIndex');
 
-Route::get('page', array('as' => 'page.index', 'uses' => 'PageController@index'));
+Route::group(array('prefix' => 'page'), function()
+{
+	Route::get('/', array('as' => 'page.index', 'uses' => 'PageController@index'));
+	Route::get('create', array('as' => 'page.create', 'uses' => 'PageController@create'));
+	Route::post('create', array('as' => 'page.store', 'uses' => 'PageController@store'));
+	Route::get('edit/{id}', array('as' => 'page.edit', 'uses' => 'PageController@edit'));
+	Route::post('edit/{id}', array('as' => 'page.update', 'uses' => 'PageController@update'));
+	Route::get('destroy/{id}', array('as' => 'page.destroy', 'uses' => 'PageController@destroy'));
+	Route::get('publish/{id}/{state}', array('as' => 'page.publish', 'uses' => 'PageController@publish'));
+	Route::get('inMenu/{id}/{state}', array('as' => 'page.inMenu', 'uses' => 'PageController@inMenu'));
+});
 Route::get('{slug}', array('as' => 'page.show', 'uses' => 'PageController@show'));
-Route::get('page/create', array('as' => 'page.create', 'uses' => 'PageController@create'));
-Route::post('page/create', array('as' => 'page.store', 'uses' => 'PageController@store'));
-Route::get('page/edit/{id}', array('as' => 'page.edit', 'uses' => 'PageController@edit'));
-Route::post('page/edit/{id}', array('as' => 'page.update', 'uses' => 'PageController@update'));

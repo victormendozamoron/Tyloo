@@ -170,7 +170,74 @@ class PageController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		// Check if the page exists
+		if (is_null($page = Page::find($id)))
+		{
+			// Redirect to Page management page
+			return Redirect::to('page.index')->with('error', Lang::get('page/message.not_found'));
+		}
+
+		// Delete the page
+		$page->delete();
+
+		// Redirect to the Page management page
+		return Redirect::to('page.index')->with('success', Lang::get('page/message.delete.success'));
+	}
+
+	/**
+	 * Publish or UnPublish a Page.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function publish($id, $state)
+	{
+		// Get the page data
+		if (is_null($page = Page::find($id)))
+		{
+			// Redirect to Page management page
+			return Redirect::to('page.index')->with('error', Lang::get('page/message.not_found'));
+		}
+
+		$page->draft = $state;
+
+		// Was the page created?
+		if($page->save())
+		{
+			// Redirect to the new page page
+			return Redirect::route('page.index')->with('success', Lang::get('page/message.edit.success'));
+		}
+
+		// Redirect to the pagecreate page
+		return Redirect::route('page.index')->with('error', Lang::get('page/message.publish.error'));
+	}
+
+	/**
+	 * Set the Page in the top menu or not.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function inMenu($id, $state)
+	{
+		// Get the page data
+		if (is_null($page = Page::find($id)))
+		{
+			// Redirect to Page management page
+			return Redirect::to('page.index')->with('error', Lang::get('page/message.not_found'));
+		}
+
+		$page->in_menu = $state;
+
+		// Was the page created?
+		if($page->save())
+		{
+			// Redirect to the new page page
+			return Redirect::route('page.index')->with('success', Lang::get('page/message.edit.success'));
+		}
+
+		// Redirect to the pagecreate page
+		return Redirect::route('page.index')->with('error', Lang::get('page/message.in_menu.error'));
 	}
 
 }
