@@ -15,7 +15,7 @@
     {{ HTML::decode($portfolio_post->content) }}
   </div>
   <div class="panel-footer">
-  	<span class="glyphicon glyphicon-calendar"></span> {{{ $portfolio_post->created_at->diffForHumans() }}} | @foreach($portfolio_post->tags as $tag) <span class="label label-primary"><span class="glyphicon glyphicon-tag"></span> {{ $tag->name }}</span> @endforeach
+  	<i class="icon-calendar"></i> {{{ $portfolio_post->created_at->diffForHumans() }}} | @foreach($portfolio_post->tags as $tag) <span class="label label-primary"><i class="icon-tag"></i> {{ $tag->name }}</span> @endforeach
   	@include('partials.post_edit', array('type' => 'portfolio', 'id' => $portfolio_post->id))
   </div>
 </div>

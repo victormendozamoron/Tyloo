@@ -8,12 +8,14 @@ $(document).ready(function() {
 		});
 	}
 
-	var elt = $('#tags');
-	elt.tagsinput();
-	elt.tagsinput('input').typeahead({
-	  prefetch: '/blog/cats.json'
-	}).bind('typeahead:selected', $.proxy(function (obj, datum) {  
-		this.tagsinput('add', datum.value);
-		this.tagsinput('input').typeahead('setQuery', '');
-	}, elt));
+	if ($('#tags').length != 0) {
+		var elt = $('#tags');
+		elt.tagsinput();
+		elt.tagsinput('input').typeahead({
+		  prefetch: '/blog/cats.json'
+		}).bind('typeahead:selected', $.proxy(function (obj, datum) {  
+			this.tagsinput('add', datum.value);
+			this.tagsinput('input').typeahead('setQuery', '');
+		}, elt));
+	}
 });

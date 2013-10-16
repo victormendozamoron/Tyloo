@@ -8,7 +8,18 @@ class PageController extends BaseController {
 	 * @return void
 	 */
 	public function __construct() {
-		$this->beforeFilter('admin-auth', array('except' => array('getPage')));
+		$this->beforeFilter('admin-auth', array('except' => array('show')));
+	}
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		$pages = Page::all();
+		return View::make('modules.page.index', compact('pages'));
 	}
 
 	/**

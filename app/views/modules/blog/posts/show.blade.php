@@ -15,7 +15,7 @@
     {{ HTML::decode($blog_post->content) }}
   </div>
   <div class="panel-footer">
-  	Posted by {{{ $blog_post->author->first_name }}} {{{ $blog_post->created_at->diffForHumans() }}} | @foreach($blog_post->tags as $tag) <a href="{{ URL::route('blog.postsByTag', array('slug' => $tag->slug)) }}" class="label label-primary"><span class="glyphicon glyphicon-tag"></span> {{ $tag->name }}</a> @endforeach
+  	Posted by {{{ $blog_post->author->first_name }}} {{{ $blog_post->created_at->diffForHumans() }}} | @foreach($blog_post->tags as $tag) <a href="{{ URL::route('blog.postsByTag', array('slug' => $tag->slug)) }}" class="label label-primary"><i class="icon-tag"></i> {{ $tag->name }}</a> @endforeach
   	@include('partials.post_edit', array('type' => 'blog', 'id' => $blog_post->id))
   </div>
 </div>

@@ -9,15 +9,15 @@
 
     <title>Tyloo.fr</title>
 
-    <link href="{{ asset('assets/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet">
-    <link href="{{ asset('assets/css/font-awesome.min.css') }}" type="text/css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.no-icons.min.css" type="text/css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" type="text/css" rel="stylesheet">
     <link href="{{ asset('assets/css/bootstrap-tagsinput.css') }}" type="text/css" rel="stylesheet">
     <link href="{{ asset('assets/css/summernote.css') }}" type="text/css" rel="stylesheet">
     <link href="{{ asset('assets/css/main.css') }}" type="text/css" rel="stylesheet">
 
     <!-- Bootstrap core JavaScript -->
-    <script src="{{ asset('assets/js/jquery-2.0.3.min.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="{{ asset('assets/js/bootstrap-tagsinput.js') }}"></script>
     <script src="{{ asset('assets/js/typeahead.min.js') }}"></script>
     <script src="{{ asset('assets/js/summernote.min.js') }}"></script>
@@ -62,10 +62,16 @@
               </a>
               <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                 @if(Sentry::getUser()->hasAccess('admin'))
-                <li><a href="#"><i class="icon-cog"></i> Administration</a></li>
+                <li role="presentation" class="dropdown-header">Administration</li>
+                <li><a href="#"><i class="icon-cog"></i> Website Settings</a></li>
+                <li><a href="{{ URL::route('blog.create') }}"><i class="icon-pencil"></i> Add a Blog Post</a></li>
+                <li><a href="{{ URL::route('portfolio.create') }}"><i class="icon-pencil"></i> Add a Portfolio Post</a></li>
+                <li><a href="{{ URL::route('page.create') }}"><i class="icon-pencil"></i> Add a Page</a></li>
+                <li><a href="{{ URL::route('page.index') }}"><i class="icon-list"></i> List all Pages</a></li>
                 @endif
-                <li{{ (Request::is('account/profile') ? ' class="active"' : '') }}><a href="{{ route('profile') }}"><i class="icon-user"></i> Your profile</a></li>
                 <li class="divider"></li>
+                <li role="presentation" class="dropdown-header">Account</li>
+                <li{{ (Request::is('account/profile') ? ' class="active"' : '') }}><a href="{{ route('profile') }}"><i class="icon-user"></i> Your profile</a></li>
                 <li><a href="{{ route('logout') }}"><i class="icon-off"></i> Logout</a></li>
               </ul>
             </li>

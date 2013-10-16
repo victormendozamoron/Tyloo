@@ -100,6 +100,7 @@ Route::resource('portfolio', 'PortfolioController');
 Route::get('contact', array('as' => 'contact', 'uses' => 'ContactController@getIndex'));
 Route::post('contact', 'ContactController@postIndex');
 
+Route::get('page', array('as' => 'page.index', 'uses' => 'PageController@index'));
 Route::get('{slug}', array('as' => 'page.show', 'uses' => 'PageController@show'));
 Route::get('page/create', array('as' => 'page.create', 'uses' => 'PageController@create'));
 Route::post('page/create', array('as' => 'page.store', 'uses' => 'PageController@store'));
