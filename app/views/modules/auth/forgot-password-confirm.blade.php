@@ -1,39 +1,33 @@
 @extends('layouts.default')
 
-{{-- Page content --}}
 @section('content')
 <div class="page-header">
-	<h3>Forgot Password</h3>
+	<h4>Forgot Password</h4>
 </div>
-<form method="post" action="" class="form-horizontal">
-	<!-- CSRF Token -->
-	<input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
-	<!-- New Password -->
-	<div class="control-group{{ $errors->first('password', ' error') }}">
-		<label class="control-label" for="password">New Password</label>
-		<div class="controls">
-			<input type="password" name="password" id="password" value="{{ Input::old('password') }}" />
+{{ Form::open(array('class' => 'form-horizontal', 'autocomplete' => 'off')) }}
+	<div class="form-group{{ $errors->first('password', ' has-error', 'has-success') }}">
+		{{ Form::label('password', 'New Password', array('class' => 'col-lg-4 control-label')) }}
+		<div class="col-lg-4">
+			{{ Form::text('password', Input::old('password'), array('class' => 'form-control')) }}
 			{{ $errors->first('password', '<span class="help-block">:message</span>') }}
 		</div>
 	</div>
 
-	<!-- Password Confirm -->
-	<div class="control-group{{ $errors->first('password_confirm', ' error') }}">
-		<label class="control-label" for="password_confirm">Password Confirmation</label>
-		<div class="controls">
-			<input type="password" name="password_confirm" id="password_confirm" value="{{ Input::old('password_confirm') }}" />
+	<div class="form-group{{ $errors->first('password_confirm', ' has-error', 'has-success') }}">
+		{{ Form::label('password_confirm', 'Password Confirmation', array('class' => 'col-lg-4 control-label')) }}
+		<div class="col-lg-4">
+			{{ Form::text('password_confirm', Input::old('password_confirm'), array('class' => 'form-control')) }}
 			{{ $errors->first('password_confirm', '<span class="help-block">:message</span>') }}
 		</div>
 	</div>
 
-	<!-- Form actions -->
-	<div class="control-group">
-		<div class="controls">
-			<a class="btn" href="{{ route('home') }}">Cancel</a>
+	<hr>
 
-			<button type="submit" class="btn btn-info">Submit</button>
+	<div class="form-group">
+		<div class="col-lg-offset-4 col-lg-4 text-center">
+			{{ Form::submit('Submit', array('class' => 'btn btn-primary')) }}
 		</div>
 	</div>
-</form>
+{{ Form::close() }}
 @stop

@@ -1,30 +1,25 @@
 @extends('layouts.default')
 
-{{-- Page content --}}
 @section('content')
 <div class="page-header">
-	<h3>Forgot Password</h3>
+	<h4>Forgot Password</h4>
 </div>
-<form method="post" action="" class="form-horizontal">
-	<!-- CSRF Token -->
-	<input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
-	<!-- Email -->
-	<div class="control-group{{ $errors->first('email', ' error') }}">
-		<label class="control-label" for="email">Email</label>
-		<div class="controls">
-			<input type="text" name="email" id="email" value="{{ Input::old('email') }}" />
+{{ Form::open(array('class' => 'form-horizontal', 'autocomplete' => 'off')) }}
+	<div class="form-group{{ $errors->first('email', ' has-error', 'has-success') }}">
+		{{ Form::label('email', 'Email', array('class' => 'col-lg-4 control-label')) }}
+		<div class="col-lg-4">
+			{{ Form::text('email', Input::old('email'), array('class' => 'form-control')) }}
 			{{ $errors->first('email', '<span class="help-block">:message</span>') }}
 		</div>
 	</div>
 
-	<!-- Form actions -->
-	<div class="control-group">
-		<div class="controls">
-			<a class="btn" href="{{ route('home') }}">Cancel</a>
+	<hr>
 
-			<button type="submit" class="btn">Submit</button>
+	<div class="form-group">
+		<div class="col-lg-offset-4 col-lg-4 text-center">
+			{{ Form::submit('Submit', array('class' => 'btn btn-primary')) }}
 		</div>
 	</div>
-</form>
+{{ Form::close() }}
 @stop

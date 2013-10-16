@@ -54,6 +54,8 @@
 		</div>
 	</div>
 
+	<hr>
+
 	<div class="form-group">
 		<div class="col-lg-offset-4 col-lg-4 text-center">
 			{{ Form::submit('Sign Up', array('class' => 'btn btn-primary')) }}
