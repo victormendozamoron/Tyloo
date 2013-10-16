@@ -93,6 +93,7 @@ Route::get('blog/cats.json', function()
 {
     return BlogTag::all()->lists('name');
 });
+Route::get('blog/tag/{slug}', array('as' => 'blog.postsByTag', 'uses' => 'BlogController@getPostsByTag'));
 Route::resource('blog', 'BlogController');
 Route::resource('portfolio', 'PortfolioController');
 

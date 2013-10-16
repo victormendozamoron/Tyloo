@@ -19,8 +19,20 @@ class BlogController extends BaseController {
 	 */
 	public function index()
 	{
-		return View::make('modules.blog.posts.index')
-			->with('blog_posts', BlogPost::paginate(10));
+		$blog_posts = BlogPost::where('draft', '=', '0')->paginate(10);
+		return View::make('modules.blog.posts.index', compact('blog_posts'));
+	}
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function getPostsByTag($slug)
+	{
+		$tag = BlogTag::where('slug', '=', $slug)->first();
+		$blog_posts = $tag->posts()->where('draft', '=', '0')->paginate(10);
+		return View::make('modules.blog.posts.postsByTag', compact('tag', 'blog_posts'));
 	}
 
 	/**

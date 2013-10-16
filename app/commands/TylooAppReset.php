@@ -171,6 +171,11 @@ class TylooAppReset extends Command {
 		  if (is_file ($file))
 		    unlink ($file);
 		}
+		$files = glob('public/uploads/portfolio_posts/*');
+		foreach ($files as $file) {
+		  if (is_file ($file))
+		    unlink ($file);
+		}
 	}
 
 }

@@ -3,7 +3,9 @@
 {{-- Page content --}}
 @section('content')
 @include('partials.post_create', array('type' => 'blog'))
-
+<div class="page-header">
+  <h4>Blog posts with tag "{{ $tag->name }}"</h4>
+</div>
 @foreach($blog_posts as $blog_post)
 <div class="panel panel-default">
   <div class="panel-heading">

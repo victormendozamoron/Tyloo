@@ -1,6 +1,8 @@
 body { padding-top:70px; }
 
-/* Login Form */
+.label-primary a { color:#FFF; }
+
+/* Login Form Begin */
 .form-login {
   max-width: 330px;
   padding: 15px;
@@ -35,6 +37,7 @@ body { padding-top:70px; }
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+/* Login Form End */
 
 .topbar_buttons {
   margin-bottom:20px;
@@ -42,6 +45,7 @@ body { padding-top:70px; }
 
 #summernote { display:none; }
 
+/* Input Tag Begin */
 .twitter-typeahead .tt-query,
 .twitter-typeahead .tt-hint {
   margin-bottom: 0;
@@ -114,3 +118,4 @@ body { padding-top:70px; }
 .tt-suggestion p {
   margin: 0;
 }
+/* Input Tag Begin */
