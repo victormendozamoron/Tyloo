@@ -3,7 +3,7 @@
 return array(
 
 	'success' => array(
-		'profile' => 'Profile mis à jour avec succès !',
+		'profile' => 'Profil mis à jour avec succès !',
 		'password' => 'Mot de Passe modifié avec succès !',
 		'email' => 'Adresse Email modifiée avec succès !',
 	),

@@ -13,8 +13,8 @@ return array(
         ),
     ),
     'change_email'                  => array(
-        'page_title'                => 'Modifier votre Adresse Email',
-        'change_email'              => 'Modifier votre Adresse Email',
+        'page_title'                => 'Modifier mon Adresse Email',
+        'change_email'              => 'Modifier mon Adresse Email',
         'form' => array(
             'new_email'             => 'Nouvelle Adresse Email',
             'new_email_confirm'     => 'Confirmez',
@@ -23,12 +23,12 @@ return array(
     ),
 
     'change_password' => array(
-        'page_title'                => 'Modifier votre Mot de Passe',
-        'change_password'           => 'Modifier votre adresse Mot de Passe',
+        'page_title'                => 'Modifier mon Mot de Passe',
+        'change_password'           => 'Modifier mon adresse Mot de Passe',
         'form' => array(
-            'old_password'          => 'Nouvelle adresse Email',
-            'new_password'         => 'Confirmez',
-            'new_password_confirm'  => 'Mot de passe actuel',
+            'old_password'          => 'Ancien Mot de Passe',
+            'new_password'         => 'Nouveau Mot de Passe',
+            'new_password_confirm'  => 'Confirmez',
         ),
     ),
 

@@ -8,7 +8,7 @@ return array(
         'error'       => 'Erreur de serveur: 403 (Interdit)',
         'meaning'     => 'Qu\'est-ce que cela signifie ?',
         'reason'      => 'Vous n\'avez pas les permissions nécessaires pour accéder à cette page.',
-        'redirect'    => 'Peut-être que vous souhaitez consulter notre <a href="' . URL::route('home') . '"> page d\'accueil </a> ?'
+        'redirect'    => 'Souhaiteriez-vous consulter notre <a href="' . URL::route('home') . '"> page d\'accueil </a> ?'
     ),
 
     '404' => array(
@@ -18,7 +18,7 @@ return array(
         'meaning'     => 'Qu\'est-ce que cela signifie ?',
         'reason'      => 'Nous n\'avons pas pu trouver la page que vous avez demandée sur nos serveurs. Nous en sommes vraiment désolés.<br>'.
                          'Nous faisons tout notre possible afin que cette page soit prochainement disponible.',
-        'redirect'    => 'Peut-être que vous souhaitez vous consulter notre <a href="'.URL::route('home').'"> page d\'accueil </a> ?'
+        'redirect'    => 'Souhaiteriez-vous consulter notre <a href="'.URL::route('home').'"> page d\'accueil </a> ?'
     ),
 
     '500' => array(
@@ -28,7 +28,7 @@ return array(
         'meaning'     => 'Qu\'est-ce que cela signifie ?',
         'reason'      => 'Quelque chose s\'est mal passé sur nos serveurs pendant que nous traitions votre demande.<br>'.
                          'Nous sommes vraiment désolés à ce sujet, nous faisons tout notre possible pour résoudre cela au plus vite.',
-        'redirect'    => 'Peut-être que vous souhaitez vous consulter notre <a href="'.URL::route('home').'3> page d\'accueil </a> ?'
+        'redirect'    => 'Souhaiteriez-vous consulter notre <a href="'.URL::route('home').'3> page d\'accueil </a> ?'
     ),
 
     '503' => array(
@@ -36,7 +36,7 @@ return array(
         'description' => 'Maintenance prévue',
         'error'       => 'Erreur de serveur: 503 (Maintenance) ',
         'meaning'     => 'Qu\'est-ce que cela signifie ?',
-        'reason'      => 'Nous sommes sous une maintenance programmée et nous serons de retour bientôt !'
+        'reason'      => 'Nous effectuons une maintenance programmée et nous serons de retour bientôt !'
     )
 
 );

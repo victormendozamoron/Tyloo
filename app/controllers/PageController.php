@@ -30,8 +30,14 @@ class PageController extends BaseController {
 	 */
 	public function show($slug)
 	{
-		return View::make('modules.page.show')
-			->with('page', Page::where('slug', $slug)->first());
+		// Check if the page exists
+		if (is_null($page = Page::where('slug', $slug)->first()))
+		{
+			// Put a 404 in ur face, yo !
+			return App::abort(404);
+		}
+
+		return View::make('modules.page.show')->with('page', Page::where('slug', $slug)->first());
 	}
 
 	/**

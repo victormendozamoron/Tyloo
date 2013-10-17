@@ -21,6 +21,14 @@ class BaseController extends Controller {
 
 		// Initialization of the MessageBag
 		$this->messageBag = new Illuminate\Support\MessageBag;
+
+		if (Session::get('locale')) {
+			App::setLocale(Session::get('locale'));
+		}
+		else {
+			Session::put('locale', 'fr');
+			App::setLocale('fr');
+		}
 	}
 
 	/**
