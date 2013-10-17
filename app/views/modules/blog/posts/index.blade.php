@@ -1,8 +1,14 @@
 @extends('layouts.default')
 
+{{-- Page title --}}
+@section('title')
+Blog - @parent
+@stop
+
 {{-- Page content --}}
 @section('content')
 @include('partials.post_create', array('type' => 'blog'))
+<div class="clearfix"></div>
 
 @foreach($blog_posts as $blog_post)
 <div class="panel panel-default">

@@ -1,8 +1,14 @@
 @extends('layouts.default')
 
+{{-- Page title --}}
+@section('title')
+Forgot Password - @parent
+@stop
+
+{{-- Page content --}}
 @section('content')
 <div class="page-header">
-	<h4>Forgot Password</h4>
+	<h3>Forgot Password</h3>
 </div>
 
 {{ Form::open(array('class' => 'form-horizontal', 'autocomplete' => 'off')) }}

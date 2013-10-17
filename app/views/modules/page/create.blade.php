@@ -1,10 +1,16 @@
 @extends('layouts.default')
 
+{{-- Page title --}}
+@section('title')
+Insert a Page - @parent
+@stop
+
 {{-- Page content --}}
 @section('content')
 <div class="page-header">
 	<h3>Insert a Page</h3>
 </div>
+
 {{ Form::open(array('route' => 'page.store', 'files' => true, 'class' => 'form-horizontal blogpost_form', 'role' => 'form')) }}
 	<div class="form-group{{ $errors->first('title', ' has-error', 'has-success') }}">
 		{{ Form::label('title', 'Title', array('class' => 'col-lg-2 control-label')) }}

@@ -1,5 +1,10 @@
 @extends('layouts.default')
 
+{{-- Page title --}}
+@section('title')
+Edit a Page - @parent
+@stop
+
 {{-- Page content --}}
 @section('content')
 <div class="page-header">

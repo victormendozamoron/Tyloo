@@ -1,5 +1,10 @@
 @extends('layouts.default')
 
+{{-- Page title --}}
+@section('title')
+Sign in - @parent
+@stop
+
 {{-- Page content --}}
 @section('content')
 {{ Form::open(array('route' => 'login', 'class' => 'form-login')) }}

@@ -1,5 +1,10 @@
 @extends('layouts.default')
 
+{{-- Page title --}}
+@section('title')
+Home - @parent
+@stop
+
 {{-- Page content --}}
 @section('content')
 <p>

@@ -1,8 +1,17 @@
 @extends('layouts.default')
 
+{{-- Page title --}}
+@section('title')
+Page Management - @parent
+@stop
+
 {{-- Page content --}}
 @section('content')
-@include('partials.post_create', array('type' => 'page'))
+<div class="page-header">
+  <h3>@include('partials.post_create', array('type' => 'page'))
+  Page Management</h3>
+</div>
+
 <table class="table table-bordered">
   <thead>
     <tr>

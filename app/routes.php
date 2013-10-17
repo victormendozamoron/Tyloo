@@ -2,6 +2,16 @@
 
 /*
 |--------------------------------------------------------------------------
+| Language settings
+|--------------------------------------------------------------------------
+|
+|
+|
+*/
+View::share('locale', Session::get('locale'));
+
+/*
+|--------------------------------------------------------------------------
 | Top menu data
 |--------------------------------------------------------------------------
 |
@@ -10,7 +20,6 @@
 */
 
 View::share('menu_pages', Page::where('in_menu', '=', 1)->get(array('title', 'slug')));
-View::share('user_lang', Session::get('user_lang'));
 
 /*
 |--------------------------------------------------------------------------
@@ -88,10 +97,9 @@ Route::group(array('prefix' => 'account'), function()
 | and give it the Closure to execute when that URI is requested.
 |
 */
-
+// Blog
 Route::get('/', array('as' => 'home', 'uses' => 'HomeController@getIndex'));
 
-// Blog
 Route::group(array('prefix' => 'blog'), function()
 {
 	Route::get('admin', array('as' => 'blog.admin', 'uses' => 'BlogController@admin'));
@@ -129,4 +137,6 @@ Route::resource('page', 'PageController');
 
 // Page Display
 Route::get('{slug}', array('as' => 'page.show', 'uses' => 'PageController@show'));
+
+// Set Locale
 Route::get('lang/{lang}', array('as' => 'setLang', 'uses' => 'BaseController@setLocale'));

@@ -19,7 +19,7 @@ class PageController extends BaseController {
 	public function index()
 	{
 		$pages = Page::all();
-		return View::make('modules.page.index', compact('pages'));
+		return View::make('modules.page.admin', compact('pages'));
 	}
 
 	/**

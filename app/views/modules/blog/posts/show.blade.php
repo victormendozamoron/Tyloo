@@ -1,5 +1,26 @@
 @extends('layouts.default')
 
+{{-- Page title --}}
+@section('title')
+{{{ $blog_post->title }}} - @parent
+@stop
+
+{{-- Update the Meta Title --}}
+@section('meta.title')
+{{{ $blog_post->meta_title ? $blog_post->meta_title : $blog_post->title }}}
+@stop
+
+{{-- Update the Meta Description --}}
+@section('meta.description')
+{{{ $blog_post->meta_description ? $blog_post->meta_description : Config::get('app.settings.' . $locale . '.meta_description') }}}
+@stop
+
+{{-- Update the Meta Keywords --}}
+@section('meta.keywords')
+{{{ $blog_post->meta_keywords ? $blog_post->meta_keywords . ', ' : '' }}}
+@parent
+@stop
+
 {{-- Page content --}}
 @section('content')
 @include('partials.post_create', array('type' => 'blog'))

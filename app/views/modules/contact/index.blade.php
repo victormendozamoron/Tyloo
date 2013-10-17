@@ -1,7 +1,16 @@
 @extends('layouts.default')
 
+{{-- Page title --}}
+@section('title')
+Contact - @parent
+@stop
+
 {{-- Page content --}}
 @section('content')
+<div class="page-header">
+  <h3>Contact</h3>
+</div>
+
 {{ Form::open(array('class' => 'form-horizontal blogpost_form', 'role' => 'form')) }}
 	<div class="form-group{{ $errors->first('name', ' has-error', 'has-success') }}">
 		{{ Form::label('name', 'Your name', array('class' => 'col-lg-2 control-label')) }}

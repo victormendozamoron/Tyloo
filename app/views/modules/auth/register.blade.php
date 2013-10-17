@@ -1,10 +1,16 @@
 @extends('layouts.default')
 
+{{-- Page title --}}
+@section('title')
+Sign up - @parent
+@stop
+
 {{-- Page content --}}
 @section('content')
 <div class="page-header">
 	<h3>Sign up</h3>
 </div>
+
 {{ Form::open(array('route' => 'register', 'class' => 'form-horizontal')) }}
 	<div class="form-group{{ $errors->first('first_name', ' has-error', 'has-success') }}">
 		{{ Form::label('first_name', 'First name', array('class' => 'col-lg-2 col-lg-offset-2 control-label')) }}

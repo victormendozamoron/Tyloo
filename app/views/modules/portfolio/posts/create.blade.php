@@ -1,5 +1,10 @@
 @extends('layouts.default')
 
+{{-- Page title --}}
+@section('title')
+Insert a Portfolio Post - @parent
+@stop
+
 {{-- Page content --}}
 @section('content')
 <div class="page-header">

@@ -1,5 +1,26 @@
 @extends('layouts.default')
 
+{{-- Page title --}}
+@section('title')
+{{{ $portfolio_post->title }}} - @parent
+@stop
+
+{{-- Update the Meta Title --}}
+@section('meta.title')
+{{{ $portfolio_post->meta_title ? $portfolio_post->meta_title : $portfolio_post->title }}}
+@stop
+
+{{-- Update the Meta Description --}}
+@section('meta.description')
+{{{ $portfolio_post->meta_description ? $portfolio_post->meta_description : Config::get('app.settings.' . $locale . '.meta_description') }}}
+@stop
+
+{{-- Update the Meta Keywords --}}
+@section('meta.keywords')
+{{{ $portfolio_post->meta_keywords ? $portfolio_post->meta_keywords . ', ' : '' }}}
+@parent
+@stop
+
 {{-- Page content --}}
 @section('content')
 @include('partials.post_create', array('type' => 'portfolio'))

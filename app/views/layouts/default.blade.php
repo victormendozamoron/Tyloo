@@ -3,11 +3,21 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="title" content="@section('meta.title')
+{{ Config::get('app.settings.' . $locale . '.meta_title') }}
+@show">
+    <meta name="description" content="@section('meta.description')
+{{ Config::get('app.settings.' . $locale . '.meta_description') }}
+@show">
+    <meta name="keywords" content="@section('meta.keywords')
+{{ Config::get('app.settings.' . $locale . '.meta_keywords') }}
+@show">
+    <meta name="author" content="{{ Config::get('app.admin.name') }} ({{ Config::get('app.admin.email') }})">
     <link rel="shortcut icon" href="{{ asset('assets/img/favicon.png') }}">
 
-    <title>Tyloo.fr</title>
+    <title>@section('title')
+{{ Config::get('app.settings.' . $locale . '.title') }}
+@show</title>
 
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.no-icons.min.css" type="text/css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" type="text/css" rel="stylesheet">
@@ -82,8 +92,8 @@
             <li {{ (Request::is('auth/login') ? 'class="active"' : '') }}><a href="{{ route('login') }}">Sign in</a></li>
             <li {{ (Request::is('auth/signup') ? 'class="active"' : '') }}><a href="{{ route('register') }}">Sign up</a></li>
             @endif
-            <li><a href="{{ URL::route('setLang', array('lang' => 'fr')) }}" class="pull-left lang{{ Session::get('user_lang') == 'fr' ? ' active' : '' }}"><img src="{{ asset('assets/img/fr.png') }}" title="Set Locale as French" alt="FR"></a>
-            <a href="{{ URL::route('setLang', array('lang' => 'en')) }}" class="pull-left lang{{ Session::get('user_lang') == 'en' ? ' active' : '' }}"><img src="{{ asset('assets/img/en.png') }}" title="Set Locale as English" alt="EN"></a></li>
+            <li><a href="{{ URL::route('setLang', array('lang' => 'fr')) }}" class="pull-left lang{{ $locale == 'fr' ? ' active' : '' }}"><img src="{{ asset('assets/img/fr.png') }}" title="Set Locale as French" alt="FR"></a>
+            <a href="{{ URL::route('setLang', array('lang' => 'en')) }}" class="pull-left lang{{ $locale == 'en' ? ' active' : '' }}"><img src="{{ asset('assets/img/en.png') }}" title="Set Locale as English" alt="EN"></a></li>
           </ul>
         </div>
       </div>

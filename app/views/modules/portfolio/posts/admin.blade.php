@@ -1,8 +1,17 @@
 @extends('layouts.default')
 
+{{-- Page title --}}
+@section('title')
+Portfolio Management - @parent
+@stop
+
 {{-- Page content --}}
 @section('content')
-@include('partials.post_create', array('type' => 'portfolio'))
+<div class="page-header">
+  <h3>@include('partials.post_create', array('type' => 'portfolio'))
+  Portfolio Management</h3>
+</div>
+
 <table class="table table-bordered">
   <thead>
     <tr>

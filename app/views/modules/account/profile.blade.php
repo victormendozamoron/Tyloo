@@ -1,5 +1,11 @@
 @extends('layouts.account')
 
+{{-- Page title --}}
+@section('title')
+Profile - @parent
+@stop
+
+{{-- Page content --}}
 @section('account-content')
 <div class="page-header">
 	<h4>Update your Profile</h4>
