@@ -48,7 +48,7 @@ class AccountController extends AuthorizedController {
 		$user->save();
 
 		// Redirect to the settings page
-		return Redirect::route('profile')->with('success', 'Account successfully updated');
+		return Redirect::route('profile')->with('success', Lang::get('modules/account/messages.success.profile'));
 	}
 
 	/**
@@ -96,7 +96,7 @@ class AccountController extends AuthorizedController {
 		if ( ! $user->checkPassword(Input::get('old_password')))
 		{
 			// Set the error message
-			$this->messageBag->add('old_password', 'Your current password is incorrect.');
+			$this->messageBag->add('old_password', Lang::get('modules/account/messages.error.current_password_incorrect'));
 
 			// Redirect to the change password page
 			return Redirect::route('change-password')->withErrors($this->messageBag);
@@ -107,7 +107,7 @@ class AccountController extends AuthorizedController {
 		$user->save();
 
 		// Redirect to the change-password page
-		return Redirect::route('change-password')->with('success', 'Password successfully updated');
+		return Redirect::route('change-password')->with('success', Lang::get('modules/account/messages.success.password'));
 	}
 
 	/**
@@ -155,7 +155,7 @@ class AccountController extends AuthorizedController {
 		if ( ! $user->checkPassword(Input::get('current_password')))
 		{
 			// Set the error message
-			$this->messageBag->add('current_password', 'Your current password is incorrect');
+			$this->messageBag->add('current_password', Lang::get('modules/account/messages.error.current_password_incorrect'));
 
 			// Redirect to the change email page
 			return Redirect::route('change-email')->withErrors($this->messageBag);
@@ -166,7 +166,7 @@ class AccountController extends AuthorizedController {
 		$user->save();
 
 		// Redirect to the settings page
-		return Redirect::route('change-email')->with('success', 'Email successfully updated');
+		return Redirect::route('change-email')->with('success', Lang::get('modules/account/messages.success.password'));
 	}
 
 }
