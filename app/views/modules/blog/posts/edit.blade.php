@@ -6,7 +6,7 @@
 	<h3>Edit a Blog Post</h3>
 </div>
 
-{{ Form::open(array('method' => 'PUT', 'route' => array('blog.update', $id), 'files' => true, 'class' => 'form-horizontal blogpost_form', 'role' => 'form')) }}
+{{ Form::open(array('method' => 'PUT', 'route' => array('blog.update', $post->id), 'files' => true, 'class' => 'form-horizontal blogpost_form', 'role' => 'form')) }}
 	<div class="form-group{{ $errors->first('title', ' has-error', 'has-success') }}">
 		{{ Form::label('title', 'Title', array('class' => 'col-lg-2 control-label')) }}
 		<div class="col-lg-8">
@@ -21,11 +21,11 @@
 			{{ $errors->first('slug', '<span class="help-block">:message</span>') }}
 		</div>
 	</div>
-	<div class="form-group{{ $errors->first('tags', ' has-error', 'has-success') }}">
-		{{ Form::label('tags', 'Tags', array('class' => 'col-lg-2 control-label')) }}
+	<div class="form-group{{ $errors->first('blogtags', ' has-error', 'has-success') }}">
+		{{ Form::label('blogtags', 'Tags', array('class' => 'col-lg-2 control-label')) }}
 		<div class="col-lg-8">
-			{{ Form::text('tags', Input::old('tags', $tags), array('class' => 'form-control')) }}
-			{{ $errors->first('tags', '<span class="help-block">:message</span>') }}
+			{{ Form::text('blogtags', Input::old('blogtags', $tags), array('class' => 'form-control')) }}
+			{{ $errors->first('blogtags', '<span class="help-block">:message</span>') }}
 		</div>
 	</div>
 	<div class="form-group{{ $errors->first('image', ' has-error', 'has-success') }}">

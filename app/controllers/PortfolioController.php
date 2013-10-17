@@ -41,7 +41,6 @@ class PortfolioController extends BaseController {
 	 */
 	public function create()
 	{
-		$tags = PortfolioTag::all();
 		return View::make('modules.portfolio.posts.create');
 	}
 
@@ -97,7 +96,7 @@ class PortfolioController extends BaseController {
 		// Was the portfolio post created?
 		if($post->save())
 		{
-			$tags = explode(',', Input::get('tags'));
+			$tags = explode(',', Input::get('portfoliotags'));
 			foreach ($tags as $tag) {
 				if (PortfolioTag::where('name', '=', $tag)->count() == 0) {
 					$newTag = new PortfolioTag;
@@ -145,7 +144,7 @@ class PortfolioController extends BaseController {
 			$tags .= ',' . $tag->name;
 		}
 		$tags = substr($tags, 1);
-		return View::make('modules.portfolio.posts.edit', compact('post', 'tags', 'id'));
+		return View::make('modules.portfolio.posts.edit', compact('post', 'tags'));
 	}
 
 	/**
@@ -202,7 +201,7 @@ class PortfolioController extends BaseController {
 		if($post->save())
 		{
 			$post->tags()->detach();
-			$tags = explode(',', Input::get('tags'));
+			$tags = explode(',', Input::get('portfoliotags'));
 			foreach ($tags as $tag) {
 				if (PortfolioTag::where('name', '=', $tag)->count() == 0) {
 					$newTag = new PortfolioTag;
@@ -222,6 +221,16 @@ class PortfolioController extends BaseController {
 
 		// Redirect to the portfolio post create page
 		return Redirect::route('portfolio.create')->with('error', Lang::get('portfolios/message.edit.error'));
+	}
+
+	/**
+	 * Remove the specified resource from storage (GET).
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function delete($id) {
+		$this->destroy($id);
 	}
 
 	/**

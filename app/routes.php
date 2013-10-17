@@ -10,6 +10,7 @@
 */
 
 View::share('menu_pages', Page::where('in_menu', '=', 1)->get(array('title', 'slug')));
+View::share('user_lang', Session::get('user_lang'));
 
 /*
 |--------------------------------------------------------------------------
@@ -91,18 +92,30 @@ Route::group(array('prefix' => 'account'), function()
 Route::get('/', array('as' => 'home', 'uses' => 'HomeController@getIndex'));
 
 // Blog
-Route::get('blog/admin', array('as' => 'blog.admin', 'uses' => 'BlogController@admin'));
-Route::get('blog/{id}/publish/{state}', array('as' => 'blog.publish', 'uses' => 'BlogController@publish'));
-Route::get('blog/tag/{slug}', array('as' => 'blog.postsByTag', 'uses' => 'BlogController@getPostsByTag'));
-Route::get('blog/cats.json', function()
+Route::group(array('prefix' => 'blog'), function()
 {
-    return BlogTag::all()->lists('name');
+	Route::get('admin', array('as' => 'blog.admin', 'uses' => 'BlogController@admin'));
+	Route::get('{id}/delete', array('as' => 'blog.delete', 'uses' => 'BlogController@delete'));
+	Route::get('{id}/publish/{state}', array('as' => 'blog.publish', 'uses' => 'BlogController@publish'));
+	Route::get('tag/{slug}', array('as' => 'blog.postsByTag', 'uses' => 'BlogController@getPostsByTag'));
+	Route::get('cats.json', function()
+	{
+	    return BlogTag::all()->lists('name');
+	});
 });
 Route::resource('blog', 'BlogController');
 
 // Portfolio
-Route::get('portfolio/admin', array('as' => 'portfolio.admin', 'uses' => 'PortfolioController@admin'));
-Route::get('portfolio/{id}/publish/{state}', array('as' => 'portfolio.publish', 'uses' => 'PortfolioController@publish'));
+Route::group(array('prefix' => 'portfolio'), function()
+{
+	Route::get('admin', array('as' => 'portfolio.admin', 'uses' => 'PortfolioController@admin'));
+	Route::get('{id}/delete', array('as' => 'portfolio.delete', 'uses' => 'PortfolioController@delete'));
+	Route::get('{id}/publish/{state}', array('as' => 'portfolio.publish', 'uses' => 'PortfolioController@publish'));
+	Route::get('cats.json', function()
+	{
+	    return PortfolioTag::all()->lists('name');
+	});
+});
 Route::resource('portfolio', 'PortfolioController');
 
 // Contact
@@ -116,3 +129,4 @@ Route::resource('page', 'PageController');
 
 // Page Display
 Route::get('{slug}', array('as' => 'page.show', 'uses' => 'PageController@show'));
+Route::get('lang/{lang}', array('as' => 'setLang', 'uses' => 'BaseController@setLocale'));

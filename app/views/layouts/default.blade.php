@@ -67,6 +67,9 @@
                 <li><a href="{{ URL::route('blog.create') }}"><i class="icon-pencil"></i> Add a Blog Post</a></li>
                 <li><a href="{{ URL::route('portfolio.create') }}"><i class="icon-pencil"></i> Add a Portfolio Post</a></li>
                 <li><a href="{{ URL::route('page.create') }}"><i class="icon-pencil"></i> Add a Page</a></li>
+                <li class="divider"></li>
+                <li><a href="{{ URL::route('blog.admin') }}"><i class="icon-list"></i> List all Blog Posts</a></li>
+                <li><a href="{{ URL::route('portfolio.admin') }}"><i class="icon-list"></i> List all Portfolio Posts</a></li>
                 <li><a href="{{ URL::route('page.index') }}"><i class="icon-list"></i> List all Pages</a></li>
                 @endif
                 <li class="divider"></li>
@@ -79,6 +82,8 @@
             <li {{ (Request::is('auth/login') ? 'class="active"' : '') }}><a href="{{ route('login') }}">Sign in</a></li>
             <li {{ (Request::is('auth/signup') ? 'class="active"' : '') }}><a href="{{ route('register') }}">Sign up</a></li>
             @endif
+            <li><a href="{{ URL::route('setLang', array('lang' => 'fr')) }}" class="pull-left lang{{ Session::get('user_lang') == 'fr' ? ' active' : '' }}"><img src="{{ asset('assets/img/fr.png') }}" title="Set Locale as French" alt="FR"></a>
+            <a href="{{ URL::route('setLang', array('lang' => 'en')) }}" class="pull-left lang{{ Session::get('user_lang') == 'en' ? ' active' : '' }}"><img src="{{ asset('assets/img/en.png') }}" title="Set Locale as English" alt="EN"></a></li>
           </ul>
         </div>
       </div>

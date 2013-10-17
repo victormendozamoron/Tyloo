@@ -7,7 +7,6 @@
   <thead>
     <tr>
       <th>Title</th>
-      <th>Slug</th>
       <th>Tags</th>
       <th>Lang</th>
       <th>Draft</th>
@@ -18,8 +17,7 @@
   <tbody>
 @foreach($portfolio_posts as $post)
     <tr>
-      <td>{{{ $post->title }}}</td>
-      <td>{{{ $post->slug }}}</td>
+      <td>{{{ (strlen($post->title) > 30 ? substr($post->title, 0, 30) . '...' : $post->title) }}}</td>
       <td>@foreach($post->tags as $tag) <span class="label label-primary"><i class="icon-tag"></i> {{ $tag->name }}</span> @endforeach</td>
       <td>{{{ $post->lang }}}</td>
       <td>{{{ ($post->draft ? 'Yes' : 'No') }}}</td>

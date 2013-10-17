@@ -2,6 +2,9 @@ body { padding-top:70px; }
 
 .label-primary a { color:#FFF; }
 
+.lang { padding-left:5px !important; padding-right:5px !important; }
+.lang.active img { border:1px solid #FFF; }
+
 /* Login Form Begin */
 .form-login {
   max-width: 330px;

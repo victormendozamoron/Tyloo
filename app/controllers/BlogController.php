@@ -53,7 +53,6 @@ class BlogController extends BaseController {
 	 */
 	public function create()
 	{
-		$tags = BlogTag::all();
 		return View::make('modules.blog.posts.create');
 	}
 
@@ -109,7 +108,7 @@ class BlogController extends BaseController {
 		// Was the blog post created?
 		if($post->save())
 		{
-			$tags = explode(',', Input::get('tags'));
+			$tags = explode(',', Input::get('blogtags'));
 			foreach ($tags as $tag) {
 				if (BlogTag::where('name', '=', $tag)->count() == 0) {
 					$newTag = new BlogTag;
@@ -157,7 +156,7 @@ class BlogController extends BaseController {
 			$tags .= ',' . $tag->name;
 		}
 		$tags = substr($tags, 1);
-		return View::make('modules.blog.posts.edit', compact('post', 'tags', 'id'));
+		return View::make('modules.blog.posts.edit', compact('post', 'tags'));
 	}
 
 	/**
@@ -214,7 +213,7 @@ class BlogController extends BaseController {
 		if($post->save())
 		{
 			$post->tags()->detach();
-			$tags = explode(',', Input::get('tags'));
+			$tags = explode(',', Input::get('blogtags'));
 			foreach ($tags as $tag) {
 				if (BlogTag::where('name', '=', $tag)->count() == 0) {
 					$newTag = new BlogTag;
@@ -234,6 +233,16 @@ class BlogController extends BaseController {
 
 		// Redirect to the blog post create page
 		return Redirect::route('blog.create')->with('error', Lang::get('blogs/message.edit.error'));
+	}
+
+	/**
+	 * Remove the specified resource from storage (GET).
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function delete($id) {
+		$this->destroy($id);
 	}
 
 	/**

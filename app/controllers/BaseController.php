@@ -21,6 +21,14 @@ class BaseController extends Controller {
 
 		// Initialization of the MessageBag
 		$this->messageBag = new Illuminate\Support\MessageBag;
+
+		if ( ! Session::has('user_lang')) {
+			$user_lang = Session::get('user_lang');
+			$lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+			if ($lang != 'fr' && $lang != 'en') { $lang = 'en'; }
+
+			Session::put('user_lang', $lang);
+		}
 	}
 
 	/**
@@ -34,6 +42,11 @@ class BaseController extends Controller {
 		{
 			$this->layout = View::make($this->layout);
 		}
+	}
+
+	public function setLocale($lang) {
+		Session::put('user_lang', $lang);
+		return Redirect::back();
 	}
 
 }
