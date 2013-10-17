@@ -2,14 +2,14 @@
 
 {{-- Page title --}}
 @section('title')
-Blog posts with tag "{{ $tag->name }}" - @parent
+@lang('modules/blog/views.postsByTag.page_title', array('tag' => $tag->name)) - @parent
 @stop
 
 {{-- Page content --}}
 @section('content')
 <div class="page-header">
   <h3>@include('partials.post_create', array('type' => 'blog'))
-  Blog posts with tag "{{ $tag->name }}"</h3>
+  @lang('modules/blog/views.postsByTag.page_title', array('tag' => $tag->name))</h3>
 </div>
 
 @foreach($blog_posts as $blog_post)
@@ -22,10 +22,11 @@ Blog posts with tag "{{ $tag->name }}" - @parent
       <img src="{{ asset('uploads/blog_posts/' . $blog_post->image) }}" class="pull-left">
     @endif
     {{ HTML::decode($blog_post->content) }}
-    <a href="{{ $blog_post->url() }}" class="pull-right">View More...</a>
+    <a href="{{ $blog_post->url() }}" class="pull-right">@lang('modules/blog/views.view_more')</a>
   </div>
   <div class="panel-footer">
-  	Posted by {{{ $blog_post->author->first_name }}} | <i class="icon-calendar"></i> {{{ $blog_post->created_at->diffForHumans() }}} | @foreach($blog_post->tags as $tag) <a href="{{ URL::route('blog.postsByTag', array('slug' => $tag->slug)) }}" class="label label-primary"><<i class="icon-tag"></i> {{ $tag->name }}</a> @endforeach
+  	@lang('modules/blog/views.posted_by')
+    {{{ $blog_post->author->fullName() }}} | <i class="icon-calendar"></i> {{{ $blog_post->created_at->diffForHumans() }}} | @foreach($blog_post->tags as $tag) <a href="{{ URL::route('blog.postsByTag', array('slug' => $tag->slug)) }}" class="label label-primary"><<i class="icon-tag"></i> {{ $tag->name }}</a> @endforeach
 	  @include('partials.post_edit', array('type' => 'blog', 'id' => $blog_post->id))
   </div>
 </div>

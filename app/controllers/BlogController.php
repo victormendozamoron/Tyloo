@@ -102,7 +102,7 @@ class BlogController extends BaseController {
         if ( ! empty($image)) {
 	        $filename = $post->slug . '_' . date('d-m-Y') . '.' . $image->getClientOriginalExtension();
 	        $uploadSuccess = Input::file('image')->move($this->destinationPath, $filename);
-	        $post->image            = e($filename);
+	        $post->image = e($filename);
 	    }
 
 		// Was the blog post created?
@@ -123,11 +123,11 @@ class BlogController extends BaseController {
 			}
 
 			// Redirect to the new blog post page
-			return Redirect::route('blog.show', array('blog' => $post->slug))->with('success', Lang::get('blogs/message.create.success'));
+			return Redirect::route('blog.show', array('blog' => $post->slug))->with('success', Lang::get('modules/blogs/messages.success.create'));
 		}
 
 		// Redirect to the blog post create page
-		return Redirect::route('blog.create')->with('error', Lang::get('blogs/message.create.error'));
+		return Redirect::route('blog.create')->with('error', Lang::get('modules/blogs/messages.error.create'));
 	}
 
 	/**
@@ -138,8 +138,12 @@ class BlogController extends BaseController {
 	 */
 	public function show($slug)
 	{
-		return View::make('modules.blog.posts.show')
-			->with('blog_post', BlogPost::where('slug', $slug)->first());
+		if (is_null($blog_post = BlogPost::where('slug', $slug)->first()))
+		{
+			// Put a 404 in ur face, yo !
+			return App::abort(404);
+		}
+		return View::make('modules.blog.posts.show', compact('blog_post'));
 	}
 
 	/**
@@ -228,11 +232,11 @@ class BlogController extends BaseController {
 			}
 
 			// Redirect to the new blog post page
-			return Redirect::route('blog.show', array('blog' => $post->slug))->with('success', Lang::get('blogs/message.edit.success'));
+			return Redirect::route('blog.show', array('blog' => $post->slug))->with('success', Lang::get('modules/blogs/messages.success.edit'));
 		}
 
 		// Redirect to the blog post create page
-		return Redirect::route('blog.create')->with('error', Lang::get('blogs/message.edit.error'));
+		return Redirect::route('blog.create')->with('error', Lang::get('modules/blogs/messages.error.edit'));
 	}
 
 	/**
@@ -257,7 +261,7 @@ class BlogController extends BaseController {
 		if (is_null($post = BlogPost::find($id)))
 		{
 			// Redirect to BlogPost management page
-			return Redirect::to('blog.admin')->with('error', Lang::get('blog/message.not_found'));
+			return Redirect::to('blog.admin')->with('error', Lang::get('modules/blogs/messages.error.not_found'));
 		}
 
 		if ( ! empty($post->image)) {
@@ -273,11 +277,11 @@ class BlogController extends BaseController {
 		if($post->delete())
 		{
 			// Redirect to the BlogPost management page
-			return Redirect::route('blog.admin')->with('success', Lang::get('blog/message.edit.success'));
+			return Redirect::route('blog.admin')->with('success', Lang::get('modules/blogs/messages.success.delete'));
 		}
 
 		// Redirect to the BlogPost management page
-		return Redirect::route('blog.admin')->with('error', Lang::get('blog/message.publish.error'));
+		return Redirect::route('blog.admin')->with('error', Lang::get('modules/blogs/messages.error.delete'));
 	}
 
 	/**
@@ -292,7 +296,7 @@ class BlogController extends BaseController {
 		if (is_null($post = BlogPost::find($id)))
 		{
 			// Redirect to Page management page
-			return Redirect::to('blog.admin')->with('error', Lang::get('blog/message.not_found'));
+			return Redirect::to('blog.admin')->with('error', Lang::get('modules/blogs/messages.error.not_found'));
 		}
 
 		$post->draft = $state;
@@ -301,11 +305,11 @@ class BlogController extends BaseController {
 		if($post->save())
 		{
 			// Redirect to the new page page
-			return Redirect::route('blog.admin')->with('success', Lang::get('blog/message.edit.success'));
+			return Redirect::route('blog.admin')->with('success', Lang::get('modules/blogs/messages.success.publish'));
 		}
 
 		// Redirect to the pagecreate page
-		return Redirect::route('blog.admin')->with('error', Lang::get('blog/message.publish.error'));
+		return Redirect::route('blog.admin')->with('error', Lang::get('modules/blogs/messages.error.publish'));
 	}
 
 }

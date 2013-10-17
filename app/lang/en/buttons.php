@@ -9,4 +9,5 @@ return array(
     'reset'   => 'Reset',
     'send'    => 'Send',
     'forgot_password' => 'I forgot my password',
+    'add' => 'Add',
 );

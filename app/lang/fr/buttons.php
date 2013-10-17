@@ -9,4 +9,5 @@ return array(
     'reset'   => 'Vider le formulaire',
     'send'    => 'Envoyer',
     'forgot_password' => 'Mot de Passe oublié',
+    'add' => 'Ajouter',
 );
