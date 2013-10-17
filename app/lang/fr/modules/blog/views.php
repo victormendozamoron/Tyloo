@@ -3,14 +3,16 @@
 return array(
 
     'admin' => array(
-        'page_title' => 'Blog Management',
-        'title' => 'Title',
+        'page_title' => 'Gestion du Blog',
+        'title' => 'Titre',
         'tags' => 'Tags',
-        'lang' => 'Lang',
-        'draft' => 'Draft',
+        'lang' => 'Langue',
+        'draft' => 'Brouillon',
         'created_at' => 'Created at',
         'author' => 'Author',
         'actions' => 'Actions',
+        'yes' => 'Oui',
+        'no' => 'Non',
     ),
     'index' => array(
         'page_title' => 'Blog',

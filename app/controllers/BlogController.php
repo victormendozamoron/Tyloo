@@ -10,6 +10,9 @@ class BlogController extends BaseController {
 	 */
 	public function __construct() {
 		$this->beforeFilter('admin-auth', array('except' => array('index', 'show')));
+
+		// Call parent
+		parent::__construct();
 	}
 
 	/**

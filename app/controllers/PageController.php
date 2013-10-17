@@ -9,6 +9,9 @@ class PageController extends BaseController {
 	 */
 	public function __construct() {
 		$this->beforeFilter('admin-auth', array('except' => array('show')));
+
+		// Call parent
+		parent::__construct();
 	}
 
 	/**
