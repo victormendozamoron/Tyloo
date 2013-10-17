@@ -44,6 +44,11 @@ class BaseController extends Controller {
 		}
 	}
 
+	/**
+	 * Setup the Locale of the Application.
+	 *
+	 * @return Redirect Previous Page
+	 */
 	public function setLocale($lang) {
 		Session::put('user_lang', $lang);
 		return Redirect::back();
