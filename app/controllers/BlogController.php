@@ -126,11 +126,11 @@ class BlogController extends BaseController {
 			}
 
 			// Redirect to the new blog post page
-			return Redirect::route('blog.show', array('blog' => $post->slug))->with('success', Lang::get('modules/blogs/messages.success.create'));
+			return Redirect::route('blog.show', array('blog' => $post->slug))->with('success', Lang::get('modules/blog/messages.success.create'));
 		}
 
 		// Redirect to the blog post create page
-		return Redirect::route('blog.create')->with('error', Lang::get('modules/blogs/messages.error.create'));
+		return Redirect::route('blog.create')->with('error', Lang::get('modules/blog/messages.error.create'));
 	}
 
 	/**
@@ -235,21 +235,11 @@ class BlogController extends BaseController {
 			}
 
 			// Redirect to the new blog post page
-			return Redirect::route('blog.show', array('blog' => $post->slug))->with('success', Lang::get('modules/blogs/messages.success.edit'));
+			return Redirect::route('blog.show', array('blog' => $post->slug))->with('success', Lang::get('modules/blog/messages.success.edit'));
 		}
 
 		// Redirect to the blog post create page
-		return Redirect::route('blog.create')->with('error', Lang::get('modules/blogs/messages.error.edit'));
-	}
-
-	/**
-	 * Remove the specified resource from storage (GET).
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function delete($id) {
-		$this->destroy($id);
+		return Redirect::route('blog.create')->with('error', Lang::get('modules/blog/messages.error.edit'));
 	}
 
 	/**
@@ -264,7 +254,7 @@ class BlogController extends BaseController {
 		if (is_null($post = BlogPost::find($id)))
 		{
 			// Redirect to BlogPost management page
-			return Redirect::to('blog.admin')->with('error', Lang::get('modules/blogs/messages.error.not_found'));
+			return Redirect::route('blog.admin')->with('error', Lang::get('modules/blog/messages.error.not_found'));
 		}
 
 		if ( ! empty($post->image)) {
@@ -280,11 +270,11 @@ class BlogController extends BaseController {
 		if($post->delete())
 		{
 			// Redirect to the BlogPost management page
-			return Redirect::route('blog.admin')->with('success', Lang::get('modules/blogs/messages.success.delete'));
+			return Redirect::route('blog.admin')->with('success', Lang::get('modules/blog/messages.success.delete'));
 		}
 
 		// Redirect to the BlogPost management page
-		return Redirect::route('blog.admin')->with('error', Lang::get('modules/blogs/messages.error.delete'));
+		return Redirect::route('blog.admin')->with('error', Lang::get('modules/blog/messages.error.delete'));
 	}
 
 	/**
@@ -299,7 +289,7 @@ class BlogController extends BaseController {
 		if (is_null($post = BlogPost::find($id)))
 		{
 			// Redirect to Page management page
-			return Redirect::to('blog.admin')->with('error', Lang::get('modules/blogs/messages.error.not_found'));
+			return Redirect::route('blog.admin')->with('error', Lang::get('modules/blog/messages.error.not_found'));
 		}
 
 		$post->draft = $state;
@@ -308,11 +298,11 @@ class BlogController extends BaseController {
 		if($post->save())
 		{
 			// Redirect to the new page page
-			return Redirect::route('blog.admin')->with('success', Lang::get('modules/blogs/messages.success.publish'));
+			return Redirect::route('blog.admin')->with('success', Lang::get('modules/blog/messages.success.publish'));
 		}
 
 		// Redirect to the pagecreate page
-		return Redirect::route('blog.admin')->with('error', Lang::get('modules/blogs/messages.error.publish'));
+		return Redirect::route('blog.admin')->with('error', Lang::get('modules/blog/messages.error.publish'));
 	}
 
 }

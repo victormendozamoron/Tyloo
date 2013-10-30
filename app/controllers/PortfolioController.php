@@ -114,11 +114,11 @@ class PortfolioController extends BaseController {
 			}
 
 			// Redirect to the new portfolio post page
-			return Redirect::route('portfolio.show', array('portfolio' => $post->slug))->with('success', Lang::get('portfolios/message.create.success'));
+			return Redirect::route('portfolio.show', array('portfolio' => $post->slug))->with('success', Lang::get('modules/portfolio/messages.success.create'));
 		}
 
 		// Redirect to the portfolio post create page
-		return Redirect::route('portfolio.create')->with('error', Lang::get('portfolios/message.create.error'));
+		return Redirect::route('portfolio.create')->with('error', Lang::get('modules/portfolio/messages.error.create'));
 	}
 
 	/**
@@ -219,21 +219,11 @@ class PortfolioController extends BaseController {
 			}
 
 			// Redirect to the new portfolio post page
-			return Redirect::route('portfolio.show', array('portfolio' => $post->slug))->with('success', Lang::get('portfolios/message.edit.success'));
+			return Redirect::route('portfolio.show', array('portfolio' => $post->slug))->with('success', Lang::get('modules/portfolio/messages.success.edit'));
 		}
 
 		// Redirect to the portfolio post create page
-		return Redirect::route('portfolio.create')->with('error', Lang::get('portfolios/message.edit.error'));
-	}
-
-	/**
-	 * Remove the specified resource from storage (GET).
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function delete($id) {
-		$this->destroy($id);
+		return Redirect::route('portfolio.create')->with('error', Lang::get('modules/portfolio/messages.error.edit'));
 	}
 
 	/**
@@ -248,7 +238,7 @@ class PortfolioController extends BaseController {
 		if (is_null($post = PortfolioPost::find($id)))
 		{
 			// Redirect to Page management page
-			return Redirect::to('portfolio.admin')->with('error', Lang::get('portfolio/message.not_found'));
+			return Redirect::route('portfolio.admin')->with('error', Lang::get('modules/portfolio/messages.error.not_found'));
 		}
 
 		if ( ! empty($post->image)) {
@@ -264,11 +254,11 @@ class PortfolioController extends BaseController {
 		if($post->delete())
 		{
 			// Redirect to the new page page
-			return Redirect::route('portfolio.admin')->with('success', Lang::get('portfolio/message.edit.success'));
+			return Redirect::route('portfolio.admin')->with('success', Lang::get('modules/portfolio/messages.success.delete'));
 		}
 
 		// Redirect to the page admin page
-		return Redirect::route('portfolio.admin')->with('error', Lang::get('portfolio/message.publish.error'));
+		return Redirect::route('portfolio.admin')->with('error', Lang::get('modules/portfolio/messages.error.delete'));
 	}
 
 	/**
@@ -283,7 +273,7 @@ class PortfolioController extends BaseController {
 		if (is_null($post = PortfolioPost::find($id)))
 		{
 			// Redirect to Portfolio management page
-			return Redirect::to('portfolio.admin')->with('error', Lang::get('portfolio/message.not_found'));
+			return Redirect::route('portfolio.admin')->with('error', Lang::get('modules/portfolio/messages.error.not_found'));
 		}
 
 		$post->draft = $state;
@@ -292,11 +282,11 @@ class PortfolioController extends BaseController {
 		if($post->save())
 		{
 			// Redirect to the Portfolio management page
-			return Redirect::route('portfolio.admin')->with('success', Lang::get('portfolio/message.edit.success'));
+			return Redirect::route('portfolio.admin')->with('success', Lang::get('modules/portfolio/messages.success.publish'));
 		}
 
 		// Redirect to the Portfolio management page
-		return Redirect::route('portfolio.admin')->with('error', Lang::get('portfolio/message.publish.error'));
+		return Redirect::route('portfolio.admin')->with('error', Lang::get('modules/portfolio/messages.error.publish'));
 	}
 
 }

@@ -183,14 +183,14 @@ class PageController extends BaseController {
 		if (is_null($page = Page::find($id)))
 		{
 			// Redirect to Page management page
-			return Redirect::to('page.index')->with('error', Lang::get('modules/page/messages.error.not_found'));
+			return Redirect::route('page.index')->with('error', Lang::get('modules/page/messages.error.not_found'));
 		}
 
 		// Delete the page
 		$page->delete();
 
 		// Redirect to the Page management page
-		return Redirect::to('page.index')->with('success', Lang::get('modules/page/messages.success.delete'));
+		return Redirect::route('page.index')->with('success', Lang::get('modules/page/messages.success.delete'));
 	}
 
 	/**
@@ -205,7 +205,7 @@ class PageController extends BaseController {
 		if (is_null($page = Page::find($id)))
 		{
 			// Redirect to Page management page
-			return Redirect::to('page.index')->with('error', Lang::get('modules/page/messages.error.not_found'));
+			return Redirect::route('page.index')->with('error', Lang::get('modules/page/messages.error.not_found'));
 		}
 
 		$page->draft = $state;
@@ -233,7 +233,7 @@ class PageController extends BaseController {
 		if (is_null($page = Page::find($id)))
 		{
 			// Redirect to Page management page
-			return Redirect::to('page.index')->with('error', Lang::get('modules/page/messages.error.not_found'));
+			return Redirect::route('page.index')->with('error', Lang::get('modules/page/messages.error.not_found'));
 		}
 
 		$page->in_menu = $state;

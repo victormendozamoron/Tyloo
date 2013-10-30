@@ -43,10 +43,12 @@
         @else
           <a href="{{ URL::route('page.publish', array('id' => $page->id, 'state' => 1)) }}" class="btn btn-warning btn-xs" title="@lang('modules/page/views.admin.unpublish')"><i class="icon-minus"></i></a>
         @endif
-        @if ($page->in_menu == true)
-          <a href="{{ URL::route('page.inMenu', array('id' => $page->id, 'state' => 0)) }}" class="btn btn-warning btn-xs" title="@lang('modules/page/views.admin.menu_delete')"><i class="icon-minus"></i></a>
-        @else
-          <a href="{{ URL::route('page.inMenu', array('id' => $page->id, 'state' => 1)) }}" class="btn btn-success btn-xs" title="@lang('modules/page/views.admin.menu_add')"><i class="icon-plus"></i></a>
+        @if ($page->draft == false)
+          @if ($page->in_menu == true)
+            <a href="{{ URL::route('page.inMenu', array('id' => $page->id, 'state' => 0)) }}" class="btn btn-info btn-xs" title="@lang('modules/page/views.admin.menu_delete')"><i class="icon-arrow-down"></i></a>
+          @else
+            <a href="{{ URL::route('page.inMenu', array('id' => $page->id, 'state' => 1)) }}" class="btn btn-info btn-xs" title="@lang('modules/page/views.admin.menu_add')"><i class="icon-arrow-up"></i></a>
+          @endif
         @endif
       </div>
       </td>

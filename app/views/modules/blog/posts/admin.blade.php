@@ -9,7 +9,7 @@
 @section('content')
 <div class="page-header">
   <h3>@include('partials.post_create', array('type' => 'blog'))
-  @lang('modules/page/views.admin.page_title')</h3>
+  @lang('modules/blog/views.admin.page_title')</h3>
 </div>
 
 <table class="table table-bordered">
