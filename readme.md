@@ -14,6 +14,6 @@ ROADMAP
 - (OK) Créer un module de gestion de contenu dynamique.
 - (OK) Ajout d'un filtre par tags (blog).
 - Rework gestion des erreurs.
-- Rework des vues et de la structure (lang & views).
+- (OK) Rework des vues et de la structure (lang & views).
 - Création d'un panel admin chef d'orchestre.
 - Tests unitaires au fur et à mesure.

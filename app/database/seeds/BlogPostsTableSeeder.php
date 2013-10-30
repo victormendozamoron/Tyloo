@@ -5,7 +5,7 @@ class BlogPostsTableSeeder extends Seeder {
 	public function run()
 	{
 		$this->command->info('Deleting existing BlogPost table...');
-		DB::table('blog_posts')->truncate();
+		DB::table('blogposts')->truncate();
 
 		$count = 20;
 		$lang = array('fr', 'en');

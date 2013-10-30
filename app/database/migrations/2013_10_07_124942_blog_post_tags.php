@@ -12,9 +12,9 @@ class BlogPostTags extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('blog_post_tags', function(Blueprint $table) {
-			$table->integer('post_id');
-			$table->integer('tag_id');
+		Schema::create('blogpost_blogtag', function(Blueprint $table) {
+			$table->integer('blogpost_id');
+			$table->integer('blogtag_id');
 		});
 	}
 
@@ -25,7 +25,7 @@ class BlogPostTags extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('blog_post_tags');
+		Schema::drop('blogpost_blogtag');
 	}
 
 }

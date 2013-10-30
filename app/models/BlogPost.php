@@ -24,7 +24,7 @@ class BlogPost extends Eloquent {
 
 	public static $rules = array();
 
-	protected $table = 'blog_posts';
+	protected $table = 'blogposts';
 
 	/**
 	 * Return the post's author.
@@ -33,7 +33,7 @@ class BlogPost extends Eloquent {
 	 */
 	public function author()
 	{
-		return $this->belongsTo('User', 'user_id');
+		return $this->belongsTo('User');
 	}
 
 	/**
@@ -48,6 +48,6 @@ class BlogPost extends Eloquent {
 
 	public function tags()
     {
-        return $this->belongsToMany('BlogTag', 'blog_post_tags', 'post_id', 'tag_id');
+        return $this->belongsToMany('BlogTag');
     }
 }

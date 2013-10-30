@@ -4,8 +4,8 @@ class BlogTagsTableSeeder extends Seeder {
 
 	public function run()
 	{
-		$this->command->info('Deleting existing BlogCat table...');
-		DB::table('blog_tags')->truncate();
+		$this->command->info('Deleting existing BlogTag table...');
+		DB::table('blogtags')->truncate();
 
 		$count = 5;
         $faker = Faker\Factory::create('fr_FR');
@@ -19,7 +19,7 @@ class BlogTagsTableSeeder extends Seeder {
             ));
         }
 
-        $this->command->info('Blog Cats inserted successfully!');
+        $this->command->info('Blog Tags inserted successfully!');
 	}
 
 }

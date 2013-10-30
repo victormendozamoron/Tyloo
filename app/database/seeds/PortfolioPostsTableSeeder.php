@@ -5,7 +5,7 @@ class PortfolioPostsTableSeeder extends Seeder {
 	public function run()
 	{
 		$this->command->info('Deleting existing PortfolioPost table...');
-		DB::table('portfolio_posts')->truncate();
+		DB::table('portfolioposts')->truncate();
 
 		$count = 20;
 		$lang = array('fr', 'en');

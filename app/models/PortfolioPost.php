@@ -23,7 +23,7 @@ class PortfolioPost extends Eloquent {
 
 	public static $rules = array();
 
-	protected $table = 'portfolio_posts';
+	protected $table = 'portfolioposts';
 
 	/**
 	 * Return the URL to the blog post.
@@ -37,6 +37,6 @@ class PortfolioPost extends Eloquent {
 
 	public function tags()
     {
-        return $this->belongsToMany('PortfolioTag', 'portfolio_post_tags', 'post_id', 'tag_id');
+        return $this->belongsToMany('PortfolioTag');
     }
 }

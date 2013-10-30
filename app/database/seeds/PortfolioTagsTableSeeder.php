@@ -4,8 +4,8 @@ class PortfolioTagsTableSeeder extends Seeder {
 
 	public function run()
 	{
-		$this->command->info('Deleting existing PortfolioCat table...');
-		DB::table('portfolio_tags')->truncate();
+		$this->command->info('Deleting existing PortfolioTag table...');
+		DB::table('portfoliotags')->truncate();
 
 		$count = 5;
         $faker = Faker\Factory::create('fr_FR');
@@ -19,7 +19,7 @@ class PortfolioTagsTableSeeder extends Seeder {
             ));
         }
 
-        $this->command->info('Portfolio Cats inserted successfully!');
+        $this->command->info('Portfolio Tags inserted successfully!');
 	}
 
 }

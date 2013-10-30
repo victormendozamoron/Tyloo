@@ -10,12 +10,12 @@
  */
 class PortfolioTag extends Eloquent {
 
-	protected $table = 'portfolio_tags';
+	protected $table = 'portfoliotags';
 	public $timestamps = false;
 
 	public function posts()
     {
-        return $this->belongsToMany('PortfolioPost', 'portfolio_post_tags', 'tag_id', 'post_id');
+        return $this->belongsToMany('PortfolioPost');
     }
 
 }

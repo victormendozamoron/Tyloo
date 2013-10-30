@@ -12,7 +12,7 @@ class PortfolioTags extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('portfolio_tags', function(Blueprint $table) {
+		Schema::create('portfoliotags', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('name');
 			$table->string('slug');
@@ -26,7 +26,7 @@ class PortfolioTags extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('portfolio_tags');
+		Schema::drop('portfoliotags');
 	}
 
 }

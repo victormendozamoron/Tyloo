@@ -12,7 +12,7 @@ class CreatePortfolioPostsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('portfolio_posts', function(Blueprint $table) {
+		Schema::create('portfolioposts', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('title');
 			$table->string('slug')->nullable();
@@ -36,7 +36,7 @@ class CreatePortfolioPostsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('portfolio_posts');
+		Schema::drop('portfolioposts');
 	}
 
 }
