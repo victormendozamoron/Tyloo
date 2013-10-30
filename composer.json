@@ -5,6 +5,7 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.0.*",
+		"barryvdh/laravel-ide-helper": "1.*",
 		"cartalyst/sentry": "2.0.*",
 		"way/generators": "dev-master",
 		"fzaninotto/faker": "1.2.*@dev"
@@ -24,6 +25,7 @@
 			"php artisan optimize"
 		],
 		"post-update-cmd": [
+			"php artisan ide-helper:generate",
 			"php artisan clear-compiled",
 			"php artisan optimize"
 		],

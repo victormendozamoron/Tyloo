@@ -117,6 +117,7 @@ return array(
 		// Additional Plugins
 		'Cartalyst\Sentry\SentryServiceProvider', // Sentry
 		'Way\Generators\GeneratorsServiceProvider', // Generator
+		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider', // IDE Helper
 	),
 
 	/*
