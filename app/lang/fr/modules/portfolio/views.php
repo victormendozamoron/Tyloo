@@ -26,15 +26,14 @@ return array(
         'page_title' => 'Portfolio',
     ),
     'postsByTag' => array(
-        'page_title' => 'Billets avec le tag ":tag"',
+        'page_title' => 'Projets avec le tag ":tag"',
     ),
     'create' => array(
-        'page_title' => 'Ajouter un Billet',
+        'page_title' => 'Ajouter un Projet',
     ),
     'edit' => array(
-        'page_title' => 'Editer un Billet',
+        'page_title' => 'Editer un Projet',
     ),
-    'posted_by' => 'Posté by',
     'view_more' => 'En voir plus...',
 
     'form' => array(

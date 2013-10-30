@@ -34,7 +34,6 @@ return array(
     'edit' => array(
         'page_title' => 'Edit a Portfolio Post',
     ),
-    'posted_by' => 'Posted by',
     'view_more' => 'View more...',
 
     'form' => array(

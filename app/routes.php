@@ -19,7 +19,7 @@ View::share('locale', Session::get('locale'));
 |
 */
 
-View::share('menu_pages', Page::where('draft', '0')->where('in_menu', '1')->get(array('title', 'slug')));
+View::share('menu_pages', Page::where('draft', '0')->where('in_menu', '1')->where('lang', Session::get('locale'))->get(array('title', 'slug')));
 
 /*
 |--------------------------------------------------------------------------

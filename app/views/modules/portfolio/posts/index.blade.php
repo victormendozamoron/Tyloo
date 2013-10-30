@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-Portfolio - @parent
+@lang('modules/portfolio/views.index.page_title') - @parent
 @stop
 
 {{-- Page content --}}
@@ -20,7 +20,7 @@ Portfolio - @parent
       <img src="{{ asset('uploads/portfolio_posts/' . $portfolio_post->image) }}" class="pull-left">
     @endif
     {{ HTML::decode($portfolio_post->content) }}
-    <a href="{{ $portfolio_post->url() }}" class="pull-right">View More...</a>
+    <a href="{{ $portfolio_post->url() }}" class="pull-right">@lang('modules/portfolio/views.view_more')</a>
   </div>
   <div class="panel-footer">
   	<i class="icon-calendar"></i> {{{ $portfolio_post->created_at->diffForHumans() }}} | @foreach($portfolio_post->tags as $tag) <span class="label label-primary"><i class="icon-tag"></i> {{ $tag->name }}</span> @endforeach

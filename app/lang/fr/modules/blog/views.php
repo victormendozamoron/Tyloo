@@ -34,7 +34,7 @@ return array(
     'edit' => array(
         'page_title' => 'Editer un Billet',
     ),
-    'posted_by' => 'Posté by',
+    'posted_by' => 'Posté par',
     'view_more' => 'En voir plus...',
 
     'form' => array(

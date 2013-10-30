@@ -6,7 +6,7 @@ return array(
 		'create' => 'Billet créé avec succès !',
 		'edit' => 'Billet édité avec succès !',
 		'delete' => 'Billet supprimé avec succès !',
-		'publish' => 'Paramètre de publication du Billet modifié avec succès !',
+		'publish' => 'Paramètres de publication du Billet modifié avec succès !',
 	),
 	'error' => array(
 		'create' => 'Une erreur est survenue lors de la création du Billet.',
