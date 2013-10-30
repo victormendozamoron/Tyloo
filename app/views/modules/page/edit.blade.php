@@ -11,7 +11,7 @@ Edit a Page - @parent
 	<h3>Edit a Page</h3>
 </div>
 
-{{ Form::open(array('method' => 'POST', 'route' => array('page.update', $page->id), 'files' => true, 'class' => 'form-horizontal blogpost_form', 'role' => 'form')) }}
+{{ Form::open(array('method' => 'POST', 'route' => array('page.update', $page->id), 'files' => true, 'class' => 'form-horizontal page_form', 'role' => 'form')) }}
 	<div class="form-group{{ $errors->first('title', ' has-error', 'has-success') }}">
 		{{ Form::label('title', 'Title', array('class' => 'col-lg-2 control-label')) }}
 		<div class="col-lg-8">

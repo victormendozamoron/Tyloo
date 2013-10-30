@@ -39,7 +39,7 @@ class ContactController extends BaseController {
 			});
 
 			// Redirect to the register page
-			return Redirect::back()->with('success', Lang::get('auth/message.contact.success'));
+			return Redirect::back()->with('success', Lang::get('modules/contact/messages.success'));
 		}
 	}
 
