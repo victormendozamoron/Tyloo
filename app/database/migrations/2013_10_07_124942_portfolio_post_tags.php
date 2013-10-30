@@ -12,9 +12,9 @@ class PortfolioPostTags extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('portfoliopost_portfoliotag', function(Blueprint $table) {
-			$table->integer('portfoliopost_id');
-			$table->integer('portfoliotag_id');
+		Schema::create('portfolio_post_portfolio_tag', function(Blueprint $table) {
+			$table->integer('portfolio_post_id');
+			$table->integer('portfolio_tag_id');
 		});
 	}
 
@@ -25,7 +25,7 @@ class PortfolioPostTags extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('portfoliopost_portfoliotag');
+		Schema::drop('portfolio_post_portfolio_tag');
 	}
 
 }
