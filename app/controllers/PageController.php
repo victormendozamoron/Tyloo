@@ -99,11 +99,11 @@ class PageController extends BaseController {
 		if($page->save())
 		{
 			// Redirect to the new page page
-			return Redirect::route('page.show', array('slug' => $page->slug))->with('success', Lang::get('page/message.create.success'));
+			return Redirect::route('page.show', array('slug' => $page->slug))->with('success', Lang::get('modules/page/messages.success.create'));
 		}
 
 		// Redirect to the page create page
-		return Redirect::route('page.create')->with('error', Lang::get('page/message.create.error'));
+		return Redirect::route('page.create')->with('error', Lang::get('modules/page/messages.error.create'));
 	}
 
 	/**
@@ -164,11 +164,11 @@ class PageController extends BaseController {
 		if($page->save())
 		{
 			// Redirect to the new page page
-			return Redirect::route('page.show', array('slug' => $page->slug))->with('success', Lang::get('page/message.edit.success'));
+			return Redirect::route('page.show', array('slug' => $page->slug))->with('success', Lang::get('modules/page/messages.success.edit'));
 		}
 
 		// Redirect to the pagecreate page
-		return Redirect::route('page.create')->with('error', Lang::get('page/message.edit.error'));
+		return Redirect::route('page.create')->with('error', Lang::get('modules/page/messages.error.edit'));
 	}
 
 	/**
@@ -183,14 +183,14 @@ class PageController extends BaseController {
 		if (is_null($page = Page::find($id)))
 		{
 			// Redirect to Page management page
-			return Redirect::to('page.index')->with('error', Lang::get('page/message.not_found'));
+			return Redirect::to('page.index')->with('error', Lang::get('modules/page/messages.error.not_found'));
 		}
 
 		// Delete the page
 		$page->delete();
 
 		// Redirect to the Page management page
-		return Redirect::to('page.index')->with('success', Lang::get('page/message.delete.success'));
+		return Redirect::to('page.index')->with('success', Lang::get('modules/page/messages.success.delete'));
 	}
 
 	/**
@@ -205,7 +205,7 @@ class PageController extends BaseController {
 		if (is_null($page = Page::find($id)))
 		{
 			// Redirect to Page management page
-			return Redirect::to('page.index')->with('error', Lang::get('page/message.not_found'));
+			return Redirect::to('page.index')->with('error', Lang::get('modules/page/messages.error.not_found'));
 		}
 
 		$page->draft = $state;
@@ -213,12 +213,12 @@ class PageController extends BaseController {
 		// Was the page created?
 		if($page->save())
 		{
-			// Redirect to the new page page
-			return Redirect::route('page.index')->with('success', Lang::get('page/message.edit.success'));
+			// Redirect to the new Page
+			return Redirect::route('page.index')->with('success', Lang::get('modules/page/messages.success.publish'));
 		}
 
-		// Redirect to the pagecreate page
-		return Redirect::route('page.index')->with('error', Lang::get('page/message.publish.error'));
+		// Redirect to the Page create page
+		return Redirect::route('page.index')->with('error', Lang::get('modules/page/messages.success.publish'));
 	}
 
 	/**
@@ -233,7 +233,7 @@ class PageController extends BaseController {
 		if (is_null($page = Page::find($id)))
 		{
 			// Redirect to Page management page
-			return Redirect::to('page.index')->with('error', Lang::get('page/message.not_found'));
+			return Redirect::to('page.index')->with('error', Lang::get('modules/page/messages.error.not_found'));
 		}
 
 		$page->in_menu = $state;
@@ -242,11 +242,11 @@ class PageController extends BaseController {
 		if($page->save())
 		{
 			// Redirect to the new page page
-			return Redirect::route('page.index')->with('success', Lang::get('page/message.edit.success'));
+			return Redirect::route('page.index')->with('success', Lang::get('modules/page/messages.success.in_menu'));
 		}
 
 		// Redirect to the pagecreate page
-		return Redirect::route('page.index')->with('error', Lang::get('page/message.in_menu.error'));
+		return Redirect::route('page.index')->with('error', Lang::get('modules/page/messages.error.in_menu'));
 	}
 
 }

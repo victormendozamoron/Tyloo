@@ -4,39 +4,47 @@ return array(
 
     'admin' => array(
         'page_title' => 'Gestion du Blog',
+
         'title' => 'Titre',
         'tags' => 'Tags',
         'lang' => 'Langue',
         'draft' => 'Brouillon',
-        'created_at' => 'Created at',
-        'author' => 'Author',
+        'created_at' => 'Date de création',
+        'author' => 'Auteur',
         'actions' => 'Actions',
+
         'yes' => 'Oui',
         'no' => 'Non',
+
+        'show' => 'Voir',
+        'edit' => 'Editer',
+        'delete' => 'Supprimer',
+        'publish' => 'Publier',
+        'unpublish' => 'Dé Publier',
     ),
     'index' => array(
         'page_title' => 'Blog',
     ),
     'postsByTag' => array(
-        'page_title' => 'Blog posts with tag ":tag"',
+        'page_title' => 'Billets avec le tag ":tag"',
     ),
     'create' => array(
-        'page_title' => 'Insert a Blog Post',
+        'page_title' => 'Ajouter un Billet',
     ),
     'edit' => array(
-        'page_title' => 'Edit a Blog Post',
+        'page_title' => 'Editer un Billet',
     ),
-    'posted_by' => 'Posted by',
-    'view_more' => 'View more...',
+    'posted_by' => 'Posté by',
+    'view_more' => 'En voir plus...',
 
     'form' => array(
-        'title' => 'Title',
+        'title' => 'Titre',
         'slug' => 'Slug',
         'tags' => 'Tags',
         'image' => 'Image',
-        'content' => 'Content',
-        'draft' => 'Draft',
-        'lang' => 'Lang',
+        'content' => 'Contenu',
+        'draft' => 'Brouillon?',
+        'lang' => 'Langue',
         'meta_title' => 'Meta Title',
         'meta_keywords' => 'Meta Keywords',
         'meta_description' => 'Meta Description',

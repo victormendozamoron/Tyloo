@@ -9,8 +9,9 @@
 @section('content')
 <div class="page-header">
   <h3>@include('partials.post_create', array('type' => 'blog'))
-  @lang('modules/blog/views.admin.page_title')</h3>
+  @lang('modules/page/views.admin.page_title')</h3>
 </div>
+
 <table class="table table-bordered">
   <thead>
     <tr>
@@ -34,13 +35,13 @@
       <td>{{{ $post->author->fullName() }}}</td>
       <td>
       <div class="btn-group">
-        <a href="{{ URL::route('blog.show', array('blog' => $post->slug)) }}" class="btn btn-info btn-xs" title="Show"><i class="icon-eye-open"></i></a>
-        <a href="{{ URL::route('blog.edit', array('blog' => $post->id)) }}" class="btn btn-primary btn-xs" title="Edit"><i class="icon-edit"></i></a>
-        <a href="{{ URL::route('blog.delete', array('id' => $post->id)) }}" class="btn btn-danger btn-xs" title="Delete"><i class="icon-remove"></i></a>
+        <a href="{{ URL::route('blog.show', array('blog' => $post->slug)) }}" class="btn btn-info btn-xs" title="@lang('modules/blog/views.admin.show')"><i class="icon-eye-open"></i></a>
+        <a href="{{ URL::route('blog.edit', array('blog' => $post->id)) }}" class="btn btn-primary btn-xs" title="@lang('modules/blog/views.admin.edit')"><i class="icon-edit"></i></a>
+        <a href="{{ URL::route('blog.delete', array('id' => $post->id)) }}" class="btn btn-danger btn-xs" title="@lang('modules/blog/views.admin.delete')"><i class="icon-remove"></i></a>
         @if ($post->draft == true)
-          <a href="{{ URL::route('blog.publish', array('id' => $post->id, 'state' => 0)) }}" class="btn btn-success btn-xs" title="Publish"><i class="icon-plus"></i></a>
+          <a href="{{ URL::route('blog.publish', array('id' => $post->id, 'state' => 0)) }}" class="btn btn-success btn-xs" title="@lang('modules/blog/views.admin.publish')"><i class="icon-plus"></i></a>
         @else
-          <a href="{{ URL::route('blog.publish', array('id' => $post->id, 'state' => 1)) }}" class="btn btn-warning btn-xs" title="Un-publish"><i class="icon-minus"></i></a>
+          <a href="{{ URL::route('blog.publish', array('id' => $post->id, 'state' => 1)) }}" class="btn btn-warning btn-xs" title="@lang('modules/blog/views.admin.unpublish')"><i class="icon-minus"></i></a>
         @endif
       </div>
       </td>

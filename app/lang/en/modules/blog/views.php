@@ -4,39 +4,47 @@ return array(
 
     'admin' => array(
         'page_title' => 'Blog Management',
+
         'title' => 'Title',
         'tags' => 'Tags',
         'lang' => 'Lang',
         'draft' => 'Draft',
         'created_at' => 'Created at',
-        'author' => 'Auteur',
+        'author' => 'Author',
         'actions' => 'Actions',
+
         'yes' => 'Yes',
         'no' => 'No',
+
+        'show' => 'Show',
+        'edit' => 'Edit',
+        'delete' => 'Delete',
+        'publish' => 'Publish',
+        'unpublish' => 'UnPublish',
     ),
     'index' => array(
         'page_title' => 'Blog',
     ),
     'postsByTag' => array(
-        'page_title' => 'Billets avec le tag ":tag"',
+        'page_title' => 'Blog posts with tag ":tag"',
     ),
     'create' => array(
-        'page_title' => 'Ajouter un Billet',
+        'page_title' => 'Insert a Blog Post',
     ),
     'edit' => array(
-        'page_title' => 'Editer un Billet',
+        'page_title' => 'Edit a Blog Post',
     ),
-    'posted_by' => 'Posté by',
-    'view_more' => 'En voir plus...',
+    'posted_by' => 'Posted by',
+    'view_more' => 'View more...',
 
     'form' => array(
-        'title' => 'Titre',
+        'title' => 'Title',
         'slug' => 'Slug',
         'tags' => 'Tags',
         'image' => 'Image',
-        'content' => 'Contenu',
-        'draft' => 'Brouillon',
-        'lang' => 'Langue',
+        'content' => 'Content',
+        'draft' => 'Draft',
+        'lang' => 'Lang',
         'meta_title' => 'Meta Title',
         'meta_keywords' => 'Meta Keywords',
         'meta_description' => 'Meta Description',
