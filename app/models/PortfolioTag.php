@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * An Eloquent Model: 'PortfolioTag'
+ *
+ * @property integer $id
+ * @property string $name
+ * @property string $slug
+ * @property-read \Illuminate\Database\Eloquent\Collection|\PortfolioPost[] $posts
+ */
 class PortfolioTag extends Eloquent {
 
 	protected $table = 'portfolio_tags';
