@@ -1,14 +1,11 @@
 {
-	"name": "laravel/laravel",
-	"description": "The Laravel Framework.",
-	"keywords": ["framework", "laravel"],
+	"name": "Tyloo/Tyloo",
+	"description": "Tyloo is a Web Application writen in Laravel 4, the best PHP framework. It contains a Blog, a Portfolio and many CMS tools for a production website.",
+	"keywords": ["Tyloo","Tyloo.fr","Laravel","Laravel 4","Blog","Portfolio","CMS"],
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.0.*",
-		"barryvdh/laravel-ide-helper": "1.*",
 		"cartalyst/sentry": "2.0.*",
-		"way/generators": "dev-master",
-		"fzaninotto/faker": "1.2.*@dev"
 	},
 	"autoload": {
 		"classmap": [
