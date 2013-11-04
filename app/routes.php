@@ -2,33 +2,12 @@
 
 /*
 |--------------------------------------------------------------------------
-| Language settings
-|--------------------------------------------------------------------------
-|
-|
-|
-*/
-View::share('locale', Session::get('locale') ? Session::get('locale') : App::getLocale());
-
-/*
-|--------------------------------------------------------------------------
-| Top menu data
-|--------------------------------------------------------------------------
-|
-|
-|
-*/
-View::share('menu_pages', Schema::hasTable('pages') ? Page::where('draft', '0')->where('in_menu', '1')->where('lang', Session::get('locale'))->get(array('title', 'slug')) : null);
-
-/*
-|--------------------------------------------------------------------------
 | Authentication and Authorization Routes
 |--------------------------------------------------------------------------
 |
 |
 |
 */
-
 Route::group(array('prefix' => 'auth'), function()
 {
 
@@ -64,7 +43,6 @@ Route::group(array('prefix' => 'auth'), function()
 |
 |
 */
-
 Route::group(array('prefix' => 'account'), function()
 {
 
