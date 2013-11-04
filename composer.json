@@ -3,6 +3,12 @@
 	"description": "Tyloo is a Web Application writen in Laravel 4, the best PHP framework. It contains a Blog, a Portfolio and many CMS tools for a production website.",
 	"keywords": ["Tyloo","Tyloo.fr","Laravel","Laravel 4","Blog","Portfolio","CMS"],
 	"license": "MIT",
+	"authors": [
+        {
+            "name": "Julien Bonvarlet",
+            "homepage": "http://www.tyloo.fr"
+        }
+    ],
 	"require": {
 		"laravel/framework": "4.0.*",
 		"cartalyst/sentry": "2.0.*"
