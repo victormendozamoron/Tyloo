@@ -26,7 +26,7 @@
   </div>
   <div class="panel-footer">
   	@lang('modules/blog/views.posted_by')
-    {{{ $blog_post->author->fullName() }}} | <i class="icon-calendar"></i> {{{ $blog_post->created_at->diffForHumans() }}} | @foreach($blog_post->tags as $tag) <a href="{{ URL::route('blog.postsByTag', array('slug' => $tag->slug)) }}" class="label label-primary"><<i class="icon-tag"></i> {{ $tag->name }}</a> @endforeach
+    {{{ $blog_post->author->fullName() }}} | <i class="icon-calendar"></i> {{{ $blog_post->created_at->diffForHumans() }}} | @foreach($blog_post->tags as $tag) <a href="{{ URL::route('blog.postsByTag', array('slug' => $tag->slug)) }}" class="label label-primary"><i class="icon-tag"></i> {{ $tag->name }}</a> @endforeach
 	  @include('partials.post_edit', array('type' => 'blog', 'id' => $blog_post->id))
   </div>
 </div>

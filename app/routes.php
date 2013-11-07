@@ -1,5 +1,28 @@
 <?php
 
+Route::groupLocale(array(), function() {
+	// Blog
+	Route::group(array('prefix' => 'blog'), function()
+	{
+		Route::get('/', array('as' => 'blog.index', 'uses' => 'BlogController@getIndex'));
+		Route::get('admin', array('as' => 'blog.admin', 'uses' => 'BlogController@getAdmin'));
+		Route::get('tag/{slug}', array('as' => 'blog.postsByTag', 'uses' => 'BlogController@getPostsByTag'));
+		Route::get('create', array('as' => 'blog.create', 'uses' => 'BlogController@getCreate'));
+		Route::post('store', array('as' => 'blog.store', 'uses' => 'BlogController@postCreate'));
+		Route::get('{id}/edit', array('as' => 'blog.edit', 'uses' => 'BlogController@getEdit'));
+		Route::post('{id}/edit', array('as' => 'blog.edit.post', 'uses' => 'BlogController@postEdit'));
+		Route::get('{id}/delete', array('as' => 'blog.destroy', 'uses' => 'BlogController@getDestroy'));
+		Route::get('{slug}', array('as' => 'blog.show', 'uses' => 'BlogController@getShow'));
+		/*
+		Route::get('{id}/delete', array('as' => 'blog.delete', 'uses' => 'BlogController@destroy'));
+		Route::get('{id}/publish/{state}', array('as' => 'blog.publish', 'uses' => 'BlogController@publish'));
+		Route::get('cats.json', function()
+		{
+		    return BlogTag::all()->lists('name');
+		});*/
+	});
+});
+
 /*
 |--------------------------------------------------------------------------
 | Authentication and Authorization Routes
@@ -74,21 +97,7 @@ Route::group(array('prefix' => 'account'), function()
 | and give it the Closure to execute when that URI is requested.
 |
 */
-// Blog
-Route::get('/', array('as' => 'home', 'uses' => 'HomeController@getIndex'));
-
-Route::group(array('prefix' => 'blog'), function()
-{
-	Route::get('admin', array('as' => 'blog.admin', 'uses' => 'BlogController@admin'));
-	Route::get('{id}/delete', array('as' => 'blog.delete', 'uses' => 'BlogController@destroy'));
-	Route::get('{id}/publish/{state}', array('as' => 'blog.publish', 'uses' => 'BlogController@publish'));
-	Route::get('tag/{slug}', array('as' => 'blog.postsByTag', 'uses' => 'BlogController@getPostsByTag'));
-	Route::get('cats.json', function()
-	{
-	    return BlogTag::all()->lists('name');
-	});
-});
-Route::resource('blog', 'BlogController');
+Route::get('/', array('as' => 'home', 'uses' => 'PageController@show'));
 
 // Portfolio
 Route::group(array('prefix' => 'portfolio'), function()
@@ -113,7 +122,7 @@ Route::get('page/{id}/inMenu/{state}', array('as' => 'page.inMenu', 'uses' => 'P
 Route::resource('page', 'PageController');
 
 // Page Display
-Route::get('{slug}', array('as' => 'page.show', 'uses' => 'PageController@show'));
+Route::get('{slug?}', array('as' => 'page.show', 'uses' => 'PageController@show'));
 
 // Set Locale
 Route::get('lang/{lang}', array('as' => 'setLang', 'uses' => 'BaseController@setLocale'));

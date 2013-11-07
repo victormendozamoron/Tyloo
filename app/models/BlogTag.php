@@ -1,21 +1,16 @@
 <?php
 
-/**
- * An Eloquent Model: 'BlogTag'
- *
- * @property integer $id
- * @property string $name
- * @property string $slug
- * @property-read \Illuminate\Database\Eloquent\Collection|\BlogPost[] $posts
- */
-class BlogTag extends Eloquent {
+class Blogtag extends Polyglot {
 
-	protected $table = 'blogtags';
+	protected $polyglot = array('name', 'slug', 'lang');
+
+	protected $fillable = array('name', 'slug', 'lang');
+
 	public $timestamps = false;
 
 	public function posts()
     {
-        return $this->belongsToMany('BlogPost');
+        return $this->belongsToMany('Blogpost', 'blogpost_blogtag', 'blogpost_id', 'blogtag_id');
     }
 
 }

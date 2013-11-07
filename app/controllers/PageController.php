@@ -31,16 +31,22 @@ class PageController extends BaseController {
 	 * @param  string  $slug
 	 * @return Response
 	 */
-	public function show($slug)
+	public function show($slug = '')
 	{
 		// Check if the page exists
-		if (is_null($page = Page::where('slug', $slug)->first()))
+		if (is_null($page = Page::where('slug', $slug)->where('lang', App::getLocale())->first()))
 		{
 			// Put a 404 in ur face, yo !
 			return App::abort(404);
 		}
 
-		return View::make('modules.page.show')->with('page', Page::where('slug', $slug)->first());
+		// Check if the page is published
+		if ($page->draft) {
+			// Put a 403 in ur face, yo !
+			return App::abort(403);
+		}
+
+		return View::make('modules.page.show')->with('page', $page);
 	}
 
 	/**

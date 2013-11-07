@@ -54,10 +54,9 @@
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li {{ (Request::is('/') ? 'class="active"' : '') }}><a href="{{ (Request::is('/') ? '#' : URL::route('home')) }}">@lang('commons.menu.home')</a></li>
-            @foreach ($menu_pages as $page)
+            <?php /*@foreach ($menu_pages as $page)
               <li {{ (Request::is($page->slug) ? 'class="active"' : '') }}><a href="{{ (Request::is($page->slug) ? '#' : URL::route('page.show', array('slug' => $page->slug))) }}">{{ $page->title }}</a></li>
-            @endforeach
+            @endforeach*/?>
             <li {{ (Request::is('portfolio') ? 'class="active"' : '') }}><a href="{{ (Request::is('portfolio') ? '#' : URL::route('portfolio.index')) }}">@lang('commons.menu.portfolio')</a></li>
             <li {{ (Request::is('blog') ? 'class="active"' : '') }}><a href="{{ (Request::is('blog') ? '#' : URL::route('blog.index')) }}">@lang('commons.menu.blog')</a></li>
             <li {{ (Request::is('contact') ? 'class="active"' : '') }}><a href="{{ (Request::is('contact') ? '#' : URL::route('contact')) }}">@lang('commons.menu.contact')</a></li>

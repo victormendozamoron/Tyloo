@@ -28,7 +28,7 @@
 @foreach($blog_posts as $post)
     <tr>
       <td>{{{ (strlen($post->title) > 30 ? substr($post->title, 0, 30) . '...' : $post->title) }}}</td>
-      <td>@foreach($post->tags as $tag) <span class="label label-primary"><i class="icon-tag"></i> {{ $tag->name }}</span> @endforeach</td>
+      <td><?php /*@foreach($post->tags as $tag) <span class="label label-primary"><i class="icon-tag"></i> {{ $tag->name }}</span> @endforeach*/ ?></td>
       <td>{{{ $post->lang }}}</td>
       <td>{{{ $post->draft ? Lang::get('modules/blog/views.admin.yes') : Lang::get('modules/blog/views.admin.no') }}}</td>
       <td>{{{ $post->created_at->diffForHumans() }}}</td>

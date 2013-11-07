@@ -9,7 +9,7 @@ class BlogController extends BaseController {
 	 * @return void
 	 */
 	public function __construct() {
-		$this->beforeFilter('admin-auth', array('except' => array('index', 'show')));
+		$this->beforeFilter('admin-auth', array('except' => array('getIndex', 'getShow', 'getPostsByTag')));
 
 		// Call parent
 		parent::__construct();
@@ -20,9 +20,9 @@ class BlogController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function getIndex()
 	{
-		$blog_posts = BlogPost::where('draft', '=', '0')->paginate(10);
+		$blog_posts = Blogpost::paginate(10);
 		return View::make('modules.blog.posts.index', compact('blog_posts'));
 	}
 
@@ -31,9 +31,9 @@ class BlogController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function admin()
+	public function getAdmin()
 	{
-		$blog_posts = BlogPost::all();
+		$blog_posts = Blogpost::all();
 		return View::make('modules.blog.posts.admin', compact('blog_posts'));
 	}
 
@@ -44,9 +44,31 @@ class BlogController extends BaseController {
 	 */
 	public function getPostsByTag($slug)
 	{
-		$tag = BlogTag::where('slug', '=', $slug)->first();
-		$blog_posts = $tag->posts()->where('draft', '=', '0')->paginate(10);
+		if (is_null($tag = BlogtagLang::where('slug', $slug)->where('lang', Lang::getLocale())->first())) {
+			// Put a 404 in ur face, yo !
+			return App::abort(404);
+		}
+		$tag->id = $tag->blogtag_id;
+		$blog_posts = $tag->posts()->paginate(10);
 		return View::make('modules.blog.posts.postsByTag', compact('tag', 'blog_posts'));
+	}
+
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  string  $slug
+	 * @return Response
+	 */
+	public function getShow($slug)
+	{
+		if (is_null($blog_post = BlogpostLang::where('slug', $slug)->where('lang', Lang::getLocale())->first()))
+		{
+			// Put a 404 in ur face, yo !
+			return App::abort(404);
+		}
+		$blog_post->id = $blog_post->blogpost_id;
+
+		return View::make('modules.blog.posts.show', compact('blog_post'));
 	}
 
 	/**
@@ -54,7 +76,7 @@ class BlogController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function getCreate()
 	{
 		return View::make('modules.blog.posts.create');
 	}
@@ -64,13 +86,12 @@ class BlogController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function postCreate()
 	{
-		// Declare the rules for the form validation
 		$rules = array(
 			'title'   => 'required|min:3',
 			'content' => 'required|min:3|not_in:<p></p>',
-			'image' => 'image|max:30000000',
+			//'image' => 'image|max:30000000',
 		);
 
 		// Create a new validator instance from our validation rules
@@ -84,69 +105,49 @@ class BlogController extends BaseController {
 		}
 
 		// Create a new blog post
-		$post = new BlogPost;
+		try {
+			$post = new Blogpost;
+			$slug = Input::get('slug') ? Str::slug(Input::get('slug')) : Str::slug(Input::get('title'));
 
-		// Update the blog post data
-		$post->title            = e(Input::get('title'));
-		if (empty($post->slug))
-			$post->slug         = e(Str::slug(Input::get('title')));
-		else
-			$post->slug         = e(Str::slug(Input::get('slug')));
-		$post->content          = e(Input::get('content'));
-		$post->draft            = e(Input::get('draft'));
-		$post->lang             = e(Input::get('lang'));
-		$post->content          = e(Input::get('content'));
-		$post->meta_title       = e(Input::get('meta-title'));
-		$post->meta_description = e(Input::get('meta-description'));
-		$post->meta_keywords    = e(Input::get('meta-keywords'));
-		$post->user_id          = Sentry::getId();
+			$post->title            = e(Input::get('title'));
+			$post->slug             = $slug;
+			$post->content          = e(Input::get('content'));
+			$post->lang             = e(Input::get('lang'));
+			$post->meta_title       = e(Input::get('meta-title'));
+			$post->meta_description = e(Input::get('meta-description'));
+			$post->meta_keywords    = e(Input::get('meta-keywords'));
+			$post->user_id          = Sentry::getId();
+			$post->save();
 
-		$image = Input::file('image');
-        if ( ! empty($image)) {
-	        $filename = $post->slug . '_' . date('d-m-Y') . '.' . $image->getClientOriginalExtension();
-	        $uploadSuccess = Input::file('image')->move($this->destinationPath, $filename);
-	        $post->image = e($filename);
-	    }
+			try {
+				$tags = explode(',', Input::get('blogtags'));
+				foreach ($tags as $tag) {
+					$req_tag = BlogtagLang::where('name', $tag);
+					if ($req_tag->count() == 0) {
+						$newTag = new Blogtag;
+						$newTag->name = ucwords($tag);
+						$newTag->slug = Str::slug($tag);
+						$newTag->lang = e(Input::get('lang'));
+						$newTag->save();
 
-		// Was the blog post created?
-		if($post->save())
-		{
-			$tags = explode(',', Input::get('blogtags'));
-			foreach ($tags as $tag) {
-				if (BlogTag::where('name', '=', $tag)->count() == 0) {
-					$newTag = new BlogTag;
-					$newTag->name = ucwords($tag);
-					$newTag->slug = Str::slug($tag);
-					$newTag->save();
+						$tag_id = Blogtag::orderBy('id', 'desc')->first()->id;
+					}
+					else {
+						$tag_id = $req_tag->first()->id;
+					}
+					$post = Blogpost::orderBy('id', 'desc')->first();
+					$post->tags()->attach($tag_id);
 				}
-				else {
-					$newTag = BlogTag::where('name', '=', $tag)->first();
-				}
-				$post->tags()->attach($newTag->id);
+			}
+			catch(Exception $e) {
+				return Redirect::route('blog.create')->with('error', Lang::get('modules/blog/messages.error.create'));
 			}
 
-			// Redirect to the new blog post page
-			return Redirect::route('blog.show', array('blog' => $post->slug))->with('success', Lang::get('modules/blog/messages.success.create'));
+			return Redirect::route('blog.show', $slug)->with('success', Lang::get('modules/blog/messages.success.create'));
 		}
-
-		// Redirect to the blog post create page
-		return Redirect::route('blog.create')->with('error', Lang::get('modules/blog/messages.error.create'));
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  string  $slug
-	 * @return Response
-	 */
-	public function show($slug)
-	{
-		if (is_null($blog_post = BlogPost::where('slug', $slug)->first()))
-		{
-			// Put a 404 in ur face, yo !
-			return App::abort(404);
+		catch(Exception $e) {
+			return Redirect::route('blog.create')->with('error', Lang::get('modules/blog/messages.error.create'));
 		}
-		return View::make('modules.blog.posts.show', compact('blog_post'));
 	}
 
 	/**
@@ -155,9 +156,9 @@ class BlogController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function getEdit($id)
 	{
-		$post = BlogPost::find($id);
+		$post = Blogpost::find($id);
 		$tags = null;
 		foreach ($post->tags as $tag) {
 			$tags .= ',' . $tag->name;
@@ -172,7 +173,7 @@ class BlogController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function postEdit($id)
 	{
 		// Declare the rules for the form validation
 		$rules = array(
@@ -192,7 +193,7 @@ class BlogController extends BaseController {
 		}
 
 		// Create a new blog post
-		$post = BlogPost::find($id);
+		$post = Blogpost::find($id);
 
 		// Update the blog post data
 		$post->title            = e(Input::get('title'));
@@ -222,14 +223,14 @@ class BlogController extends BaseController {
 			$post->tags()->detach();
 			$tags = explode(',', Input::get('blogtags'));
 			foreach ($tags as $tag) {
-				if (BlogTag::where('name', '=', $tag)->count() == 0) {
-					$newTag = new BlogTag;
+				if (Blogtag::where('name', '=', $tag)->count() == 0) {
+					$newTag = new Blogtag;
 					$newTag->name = ucwords($tag);
 					$newTag->slug = Str::slug($tag);
 					$newTag->save();
 				}
 				else {
-					$newTag = BlogTag::where('name', '=', $tag)->first();
+					$newTag = Blogtag::where('name', '=', $tag)->first();
 				}
 				$post->tags()->attach($newTag->id);
 			}
@@ -248,12 +249,12 @@ class BlogController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function getDestroy($id)
 	{
 		// Get the page data
-		if (is_null($post = BlogPost::find($id)))
+		if (is_null($post = Blogpost::find($id)))
 		{
-			// Redirect to BlogPost management page
+			// Redirect to Blogpost management page
 			return Redirect::route('blog.admin')->with('error', Lang::get('modules/blog/messages.error.not_found'));
 		}
 
@@ -261,7 +262,7 @@ class BlogController extends BaseController {
 			unlink($this->destinationPath . $post->image);
 		}
 		$post->tags()->detach();
-		foreach (BlogTag::all() as $tag) {
+		foreach (Blogtag::all() as $tag) {
 			if ( ! $tag->posts->count()) {
 				$tag->delete();
 			}
@@ -269,11 +270,11 @@ class BlogController extends BaseController {
 		// Was the page created?
 		if($post->delete())
 		{
-			// Redirect to the BlogPost management page
+			// Redirect to the Blogpost management page
 			return Redirect::route('blog.admin')->with('success', Lang::get('modules/blog/messages.success.delete'));
 		}
 
-		// Redirect to the BlogPost management page
+		// Redirect to the Blogpost management page
 		return Redirect::route('blog.admin')->with('error', Lang::get('modules/blog/messages.error.delete'));
 	}
 
@@ -283,10 +284,10 @@ class BlogController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function publish($id, $state)
+	public function getPublish($id, $state)
 	{
 		// Get the page data
-		if (is_null($post = BlogPost::find($id)))
+		if (is_null($post = Blogpost::find($id)))
 		{
 			// Redirect to Page management page
 			return Redirect::route('blog.admin')->with('error', Lang::get('modules/blog/messages.error.not_found'));

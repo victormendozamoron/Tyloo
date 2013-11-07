@@ -1,53 +1,38 @@
 <?php
 
-/**
- * An Eloquent Model: 'BlogPost'
- *
- * @property integer $id
- * @property string $title
- * @property string $slug
- * @property string $content
- * @property boolean $draft
- * @property string $lang
- * @property string $image
- * @property string $meta_title
- * @property string $meta_keywords
- * @property string $meta_description
- * @property integer $user_id
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \User $author
- * @property-read \Illuminate\Database\Eloquent\Collection|\BlogTag[] $tags
- */
-class BlogPost extends Eloquent {
-	protected $guarded = array();
+class Blogpost extends Polyglot {
 
-	public static $rules = array();
+    protected $guarded = array();
 
-	protected $table = 'blogposts';
+	protected $polyglot = array('created_at', 'title', 'slug', 'content', 'lang', 'user_id', 'meta_title', 'meta_keywords', 'meta_description');
 
-	/**
-	 * Return the post's author.
-	 *
-	 * @return User
-	 */
-	public function author()
-	{
-		return $this->belongsTo('User', 'user_id');
-	}
+	protected $fillable = array('title', 'slug', 'content', 'lang', 'user_id', 'meta_title', 'meta_keywords', 'meta_description');
 
-	/**
-	 * Return the URL to the blog post.
-	 *
-	 * @return string
-	 */
-	public function url()
-	{
-		return URL::route('blog.show', $this->slug);
-	}
+	public $timestamps = false;
 
-	public function tags()
+    public function tags()
     {
-        return $this->belongsToMany('BlogTag');
+        return $this->belongsToMany('BlogTag', 'blogpost_blogtag', 'blogpost_id', 'blogtag_id');
     }
+
+    /**
+     * Return the URL to the blog post.
+     *
+     * @return string
+     */
+    public function url()
+    {
+        return URL::route('blog.show', $this->slug);
+    }
+
+    /**
+     * Return the post's author.
+     *
+     * @return User
+     */
+    public function author()
+    {
+        return $this->belongsTo('User', 'user_id');
+    }
+
 }

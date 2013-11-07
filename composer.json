@@ -12,7 +12,8 @@
 	"require": {
 		"laravel/framework": "4.0.*",
 		"cartalyst/sentry": "2.0.*",
-		"fzaninotto/faker": "1.2.*@dev"
+		"fzaninotto/faker": "1.2.*@dev",
+		"anahkiasen/polyglot": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

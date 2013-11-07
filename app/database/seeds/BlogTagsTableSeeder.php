@@ -6,17 +6,23 @@ class BlogTagsTableSeeder extends Seeder {
 	{
 		$this->command->info('Deleting existing BlogTag table...');
 		DB::table('blogtags')->truncate();
+        DB::table('blogtag_langs')->truncate();
 
 		$count = 5;
-        $faker = Faker\Factory::create('fr_FR');
-
-		for ($i = 0; $i < $count; $i++)
-        {
-        	$name = $faker->word;
-        	BlogTag::create(array(
-                'name' => ucwords($name),
-                'slug' => Str::slug($name),
+        for ($i = 1; $i <= $count; $i++) {
+            Blogtag::create(array(
+                'name' => 'Tag ' . $i,
+                'slug' => 'tag-' . $i,
+                'lang' => 'fr',
             ));
+
+            $id = Blogtag::orderBy('id', 'desc')->first()->id;
+            $tag = Blogtag::find($id);
+            $tag->fill(array(
+                'name' => 'Tag ' . $i . ' EN',
+                'slug' => 'tag-' . $i . '-en',
+                'lang' => 'en',
+            ))->save();
         }
 
         $this->command->info('Blog Tags inserted successfully!');

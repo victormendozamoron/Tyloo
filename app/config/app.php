@@ -39,7 +39,7 @@ return array(
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'Europe/Paris',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ return array(
 	|
 	*/
 
-	'key' => 'QGwqEA7MPFwhnqnhKblQQVhXRZysHhoe',
+	'key' => 't5iYqzExYvs2si4mpvg24FHhiDjbGQJS',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -116,6 +116,7 @@ return array(
 
 		// Additional Plugins
 		'Cartalyst\Sentry\SentryServiceProvider', // Sentry
+		'Polyglot\PolyglotServiceProvider', // Polyglot
 	),
 
 	/*
@@ -183,6 +184,7 @@ return array(
 
 		// Additional Plugins
 		'Sentry' => 'Cartalyst\Sentry\Facades\Laravel\Sentry', // Sentry
+		'Polyglot' => 'Polyglot\Polyglot', // Polyglot
 
 	),
 

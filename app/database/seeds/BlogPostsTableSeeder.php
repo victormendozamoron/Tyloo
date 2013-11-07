@@ -6,36 +6,48 @@ class BlogPostsTableSeeder extends Seeder {
 	{
 		$this->command->info('Deleting existing BlogPost table...');
 		DB::table('blogposts')->truncate();
+        DB::table('blogpost_langs')->truncate();
+        DB::table('blogpost_blogtag')->truncate();
 
-		$count = 20;
-		$lang = array('fr', 'en');
-		$faker = Faker\Factory::create('fr_FR');
-		$this->command->info('Inserting ' . $count . ' sample Blog Posts...');
+        $count = 5;
+        $tags = Blogtag::get();
+        $tagz = array();
+        foreach ($tags as $tag) {
+            array_push($tagz, $tag->id);
+        }
 
-		for ($i = 0; $i < $count; $i++)
-        {
-        	$title = e(substr($faker->sentence(8), 0, -1));
-            $content = '<p>'.  implode('</p><p>', $faker->paragraphs(5)) .'</p>';
-        	$post = BlogPost::create(array(
-                'title' => $title,
-                'slug' => Str::slug($title),
-                'content' => e($content),
-                'draft' => rand(0, 1),
-                'lang' => $lang[rand(0, 1)],
-                'image' => null,
+        for ($i = 1; $i <= $count; $i++) {
+            $nb_occur = rand(1, 5);
+            shuffle($tagz);
+
+            Blogpost::create(array(
+                'title' => 'Article ' . $i,
+                'slug' => 'article-' . $i,
+                'content' => 'C larticle ' . $i . ' lolz',
+                'lang' => 'fr',
                 'user_id' => 1,
-                'meta_title' => e($title),
-                'meta_keywords' => str_replace(' ', ', ', strtolower($title)),
-                'meta_description' => strip_tags($content),
+                'meta_title' => 'Article ' . $i,
+                'meta_keywords' => 'article ' . $i,
+                'meta_description' => 'C larticle ' . $i . ' lolz',
             ));
 
-            $nb_occur = rand(1, 4);
-            $range = range(1, 5);
-            shuffle($range);
-
+            $article = Blogpost::orderBy('id', 'desc')->first();
+            
             for ($j = 0; $j < $nb_occur; $j++) {
-                echo $post->tags()->attach($range[$j]);
+                $article->tags()->attach($tagz[$j]);
             }
+
+            $article = Blogpost::find($article->id);
+            $article->fill(array(
+                'title' => 'Article ' . $i . ' (EN)',
+                'slug' => 'en-article-' . $i . '',
+                'content' => 'C larticle ' . $i . ' lolz (EN)',
+                'lang' => 'en',
+                'user_id' => 1,
+                'meta_title' => 'Article ' . $i . ' (EN)',
+                'meta_keywords' => 'article ' . $i . ' en',
+                'meta_description' => 'C larticle ' . $i . ' lolz (EN)',
+            ))->save();
         }
 
         $this->command->info('Blog Posts inserted successfully!');

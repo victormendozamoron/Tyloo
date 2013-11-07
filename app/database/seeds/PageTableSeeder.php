@@ -7,28 +7,70 @@ class PageTableSeeder extends Seeder {
 		$this->command->info('Deleting existing Pages table...');
 		DB::table('pages')->truncate();
 
-		$count = 5;
-		$lang = array('fr', 'en');
-		$faker = Faker\Factory::create('fr_FR');
-		$this->command->info('Inserting ' . $count . ' sample Pages...');
+		$this->command->info('Inserting some sample Pages...');
 
-		for ($i = 0; $i < $count; $i++)
-        {
-        	$title = e(ucfirst($faker->word));
-            $content = '<p>'.  implode('</p><p>', $faker->paragraphs(5)) .'</p>';
-        	$post = Page::create(array(
-                'title' => $title,
-                'slug' => Str::slug($title),
-                'content' => e($content),
-                'draft' => rand(0, 1),
-                'in_menu' => rand(0, 1),
-                'lang' => $lang[rand(0, 1)],
-                'user_id' => 1,
-                'meta_title' => e($title),
-                'meta_keywords' => str_replace(' ', ', ', strtolower($title)),
-                'meta_description' => strip_tags($content),
-            ));
-        }
+        // Initialize empty array
+        $pages = array();
+
+        // Page 'Home FR'
+        $pages[] = array(
+            'title' => 'Accueil',
+            'slug' => '',
+            'content' => 'Bonjour !',
+            'draft' => 0,
+            'in_menu' => 1,
+            'lang' => 'fr',
+            'user_id' => 1,
+            'meta_title' => 'Accueil',
+            'meta_keywords' => 'accueil, home page',
+            'meta_description' => 'Bonjour !',
+        );
+
+        // Page 'Home EN'
+        $pages[] = array(
+            'title' => 'Home',
+            'slug' => '',
+            'content' => 'Hello !',
+            'draft' => 0,
+            'in_menu' => 1,
+            'lang' => 'en',
+            'user_id' => 1,
+            'meta_title' => 'Home',
+            'meta_keywords' => 'home page',
+            'meta_description' => 'Hello !',
+        );
+
+        // Page 'Contact FR'
+        $pages[] = array(
+            'title' => 'Contactez-moi',
+            'slug' => 'contactez-moi',
+            'content' => 'Contactez-moi !',
+            'draft' => 0,
+            'in_menu' => 1,
+            'lang' => 'fr',
+            'user_id' => 1,
+            'meta_title' => 'Contactez-moi',
+            'meta_keywords' => 'contact',
+            'meta_description' => 'Contactez-moi !',
+        );
+
+        // Page 'Contact EN'
+        $pages[] = array(
+            'title' => 'Contact me',
+            'slug' => 'contact-me',
+            'content' => 'Contact me !',
+            'draft' => 0,
+            'in_menu' => 1,
+            'lang' => 'en',
+            'user_id' => 1,
+            'meta_title' => 'Contact me',
+            'meta_keywords' => 'contact',
+            'meta_description' => 'Contact me !',
+        );
+
+        // Insert the pages
+        Page::insert($pages);
+
 
         $this->command->info('Pages inserted successfully!');
 	}
